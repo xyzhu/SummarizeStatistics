@@ -45,6 +45,7 @@ public class Summarize {
 	public int numCase;
 	public int numSynch;
 	public int numCatch;
+	public int numOther;
 
 	String fileName;
 	int type;
@@ -61,6 +62,8 @@ public class Summarize {
 	boolean countPercent;
 	int numProject;
 	CsvWriter totalStatistics;
+	CsvWriter stat1;
+	CsvWriter stat2;
 	public Summarize(String fileDir){
 		resetStatementNumber();
 		index = 0;
@@ -108,6 +111,7 @@ public class Summarize {
 		numCase = 0;
 		numSynch = 0;
 		numCatch = 0;
+		numOther = 0;
 	}
 	public static void main(String args[]){
 		String fileDirectory = args[0];
@@ -128,6 +132,8 @@ public class Summarize {
 		else if(type == 1){
 			totalStatistics = new CsvWriter(fileDir+"TotalStatistics_stat.csv");
 			totalStatistics.setComment('#');
+			stat1 = new CsvWriter(fileDir+"TotalStatistics_stat1.csv");
+			stat2 = new CsvWriter(fileDir+"TotalStatistics_stat2.csv");
 			initializeStatement();
 		}
 		else{
@@ -163,6 +169,8 @@ public class Summarize {
 			}
 			in.close();
 			totalStatistics.close();
+			stat1.close();
+			stat2.close();
 		}catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -193,6 +201,36 @@ public class Summarize {
 			totalStatistics.write(String.valueOf(numCase));
 			totalStatistics.write(String.valueOf(numCatch));
 			totalStatistics.endRecord();
+			
+			stat1.write(String.valueOf(proNum));
+			stat1.write(filename.substring(0, filename.indexOf(".")));
+			stat1.write(String.valueOf(numMethodCall));
+			stat1.write(String.valueOf(numIf));
+			stat1.write(String.valueOf(numAssignment));
+			stat1.write(String.valueOf(numMethod));
+			stat1.write(String.valueOf(numDecl));
+			stat1.write(String.valueOf(numParam));
+			stat1.write(String.valueOf(numArgu));
+			stat1.write(String.valueOf(numBlock));
+			stat1.write(String.valueOf(numReturn));
+			numOther = numMethodDecl+numTry+numSwitch+numConstructor+numContinue+numBreak+numFor+numElse+numWhile+numCase+numCatch;
+			stat1.write(String.valueOf(numOther));
+			stat1.endRecord();
+			
+			stat2.write(String.valueOf(proNum));
+			stat2.write(filename.substring(0, filename.indexOf(".")));
+			stat2.write(String.valueOf(numMethodDecl));
+			stat2.write(String.valueOf(numTry));
+			stat2.write(String.valueOf(numSwitch));
+			stat2.write(String.valueOf(numConstructor));
+			stat2.write(String.valueOf(numContinue));
+			stat2.write(String.valueOf(numBreak));
+			stat2.write(String.valueOf(numFor));
+			stat2.write(String.valueOf(numElse));
+			stat2.write(String.valueOf(numWhile));
+			stat2.write(String.valueOf(numCase));
+			stat2.write(String.valueOf(numCatch));
+			stat2.endRecord();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -411,7 +449,7 @@ public class Summarize {
 
 	private void initializeLine() {
 		try{
-			totalStatistics.writeComment("Total Statistics with Line Percent for java project"+"\n");
+//			totalStatistics.writeComment("Total Statistics with Line Percent for java project"+"\n");
 			totalStatistics.write("Number");
 			totalStatistics.write("Project");
 			totalStatistics.write("File");
@@ -486,7 +524,7 @@ public class Summarize {
 
 	private void initializeStatement() {
 		try {
-			totalStatistics.writeComment("Total Statistics with Statemetn Percent for java project"+"\n");
+//			totalStatistics.writeComment("Total Statistics with Statemetn Percent for java project"+"\n");
 			totalStatistics.write("Number");
 			totalStatistics.write("Project");
 			totalStatistics.write("MethodCall");
@@ -510,6 +548,35 @@ public class Summarize {
 			totalStatistics.write("Case");
 			totalStatistics.write("Catch");
 			totalStatistics.endRecord();
+
+			stat1.write("Number");
+			stat1.write("Project");
+			stat1.write("MethodCall");
+			stat1.write("If");
+			stat1.write("Assignment");
+			stat1.write("Method");
+			stat1.write("Declaration");
+			stat1.write("Parameter");
+			stat1.write("Argument");
+			stat1.write("Block");
+			stat1.write("Return");
+			stat1.write("other");
+			stat1.endRecord();
+
+			stat2.write("Number");
+			stat2.write("Project");
+			stat2.write("MethodDeclaration");
+			stat2.write("Try");
+			stat2.write("Switch");
+			stat2.write("Constructor");
+			stat2.write("Continue");
+			stat2.write("Break");
+			stat2.write("For");
+			stat2.write("Else");
+			stat2.write("While");
+			stat2.write("Case");
+			stat2.write("Catch");
+			stat2.endRecord();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
