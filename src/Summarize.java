@@ -24,7 +24,6 @@ public class Summarize {
 	public int numLoop;
 	public int numTry;
 	public int numSwitch;
-	public int numClassDecl;
 	public int numDeclstmt;
 	public int numDecl;
 	public int numExprstmt;
@@ -45,6 +44,8 @@ public class Summarize {
 	public int numCase;
 	public int numSynch;
 	public int numCatch;
+	public int numLineInIf;
+	public int numMethodCallLine;
 	public int numOther;
 
 	String fileName;
@@ -90,7 +91,6 @@ public class Summarize {
 		numLoop = 0;
 		numTry = 0;
 		numSwitch = 0;
-		numClassDecl = 0;
 		numDeclstmt = 0;
 		numDecl = 0;
 		numExprstmt = 0;
@@ -111,6 +111,8 @@ public class Summarize {
 		numCase = 0;
 		numSynch = 0;
 		numCatch = 0;
+		numLineInIf = 0;
+		numMethodCallLine = 0;
 		numOther = 0;
 	}
 	public static void main(String args[]){
@@ -169,8 +171,10 @@ public class Summarize {
 			}
 			in.close();
 			totalStatistics.close();
-			stat1.close();
-			stat2.close();
+			if(type==1){
+				stat1.close();
+				stat2.close();
+			}
 		}catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -201,7 +205,7 @@ public class Summarize {
 			totalStatistics.write(String.valueOf(numCase));
 			totalStatistics.write(String.valueOf(numCatch));
 			totalStatistics.endRecord();
-			
+
 			stat1.write(String.valueOf(proNum));
 			stat1.write(filename.substring(0, filename.indexOf(".")));
 			stat1.write(String.valueOf(numMethodCall));
@@ -216,7 +220,7 @@ public class Summarize {
 			numOther = numMethodDecl+numTry+numSwitch+numConstructor+numContinue+numBreak+numFor+numElse+numWhile+numCase+numCatch;
 			stat1.write(String.valueOf(numOther));
 			stat1.endRecord();
-			
+
 			stat2.write(String.valueOf(proNum));
 			stat2.write(filename.substring(0, filename.indexOf(".")));
 			stat2.write(String.valueOf(numMethodDecl));
@@ -268,9 +272,6 @@ public class Summarize {
 			totalStatistics.write(String.valueOf((double)Math.round(percent*10000)/10000));
 			totalStatistics.write(String.valueOf(numSwitch));
 			percent = (double)numSwitch/numExecuteLine;
-			totalStatistics.write(String.valueOf((double)Math.round(percent*10000)/10000));
-			totalStatistics.write(String.valueOf(numClassDecl));
-			percent = (double)numClassDecl/numExecuteLine;
 			totalStatistics.write(String.valueOf((double)Math.round(percent*10000)/10000));
 			totalStatistics.write(String.valueOf(numDeclstmt));
 			percent = (double)numDeclstmt/numExecuteLine;
@@ -332,6 +333,12 @@ public class Summarize {
 			totalStatistics.write(String.valueOf(numCatch));
 			percent = (double)numCatch/numExecuteLine;
 			totalStatistics.write(String.valueOf((double)Math.round(percent*10000)/10000));
+			totalStatistics.write(String.valueOf(numLineInIf));
+			percent = (double)numLineInIf/numExecuteLine;
+			totalStatistics.write(String.valueOf((double)Math.round(percent*10000)/10000));
+			totalStatistics.write(String.valueOf(numMethodCallLine));
+			percent = (double)numMethodCallLine/numExecuteLine;
+			totalStatistics.write(String.valueOf((double)Math.round(percent*10000)/10000));
 			totalStatistics.endRecord();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -381,9 +388,6 @@ public class Summarize {
 		}
 		if(name.equals("Switch")){
 			numSwitch = number;
-		}
-		if(name.equals("Class declaration")){
-			numClassDecl = number;
 		}
 		if(name.equals("Declaration statement")){
 			numDeclstmt = number;
@@ -445,11 +449,17 @@ public class Summarize {
 		if(name.equals("Catch")){
 			numCatch = number;
 		}
+		if(name.equals("Lines in if")){
+			numLineInIf = number;
+		}
+		if(name.equals("Lines containing method call")){
+			numMethodCallLine = number;
+		}
 	}
 
 	private void initializeLine() {
 		try{
-//			totalStatistics.writeComment("Total Statistics with Line Percent for java project"+"\n");
+			//			totalStatistics.writeComment("Total Statistics with Line Percent for java project"+"\n");
 			totalStatistics.write("Number");
 			totalStatistics.write("Project");
 			totalStatistics.write("File");
@@ -516,6 +526,10 @@ public class Summarize {
 			totalStatistics.write("Synchronized_percent");
 			totalStatistics.write("Catch");
 			totalStatistics.write("Catch_percent");
+			totalStatistics.write("Lines_in_if");
+			totalStatistics.write("LinesInIf_percent");
+			totalStatistics.write("MethodCallLine");
+			totalStatistics.write("MethodCallLine_percent");
 			totalStatistics.endRecord();
 		}catch (IOException e) {
 			e.printStackTrace();
@@ -524,7 +538,7 @@ public class Summarize {
 
 	private void initializeStatement() {
 		try {
-//			totalStatistics.writeComment("Total Statistics with Statemetn Percent for java project"+"\n");
+			//			totalStatistics.writeComment("Total Statistics with Statemetn Percent for java project"+"\n");
 			totalStatistics.write("Number");
 			totalStatistics.write("Project");
 			totalStatistics.write("MethodCall");
