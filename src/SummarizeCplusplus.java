@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 import com.csvreader.CsvWriter;
 
 
-public class Summarize {
+public class SummarizeCplusplus {
 
 	public int numFile;
 	public int numStatement;
@@ -65,7 +65,7 @@ public class Summarize {
 	CsvWriter totalStatistics;
 	CsvWriter stat1;
 	CsvWriter stat2;
-	public Summarize(String fileDir){
+	public SummarizeCplusplus(String fileDir){
 		resetStatementNumber();
 		index = 0;
 		fstream = null;
@@ -117,7 +117,7 @@ public class Summarize {
 	}
 	public static void main(String args[]){
 		String fileDirectory = args[0];
-		Summarize summarizer = new Summarize(fileDirectory);
+		SummarizeCplusplus summarizer = new SummarizeCplusplus(fileDirectory);
 		summarizer.type =Integer.valueOf(args[1]);
 		summarizer.getStatistics(fileDirectory, summarizer.type);
 	}
@@ -169,7 +169,9 @@ public class Summarize {
 					resetStatementNumber();
 				}
 			}
-			in.close();
+			if(in!=null){
+				in.close();
+			}
 			totalStatistics.close();
 			if(type==1){
 				stat1.close();
