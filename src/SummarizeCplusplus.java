@@ -8,11 +8,12 @@ import java.io.InputStreamReader;
 import com.csvreader.CsvWriter;
 
 
-public class SummarizeCplusplus {
+public class SummarizeCplusplus implements Summarizer {
 
 	public int numFile;
 	public int numStatement;
 	public int numClass;
+	public int numStruct;
 	public int numTotalLine;
 	public int numNoCommentLine;
 	public int numExecuteLine;
@@ -49,6 +50,7 @@ public class SummarizeCplusplus {
 	public int numOther;
 
 	String fileName;
+	String fdir;
 	int type;
 	int index = 0;
 	String number;
@@ -65,8 +67,10 @@ public class SummarizeCplusplus {
 	CsvWriter totalStatistics;
 	CsvWriter stat1;
 	CsvWriter stat2;
-	public SummarizeCplusplus(String fileDir){
+	public SummarizeCplusplus(String fileDir, int statType){
 		resetStatementNumber();
+		fdir = fileDir;
+		type = statType;
 		index = 0;
 		fstream = null;
 		br = null;
@@ -115,27 +119,21 @@ public class SummarizeCplusplus {
 		numMethodCallLine = 0;
 		numOther = 0;
 	}
-	public static void main(String args[]){
-		String fileDirectory = args[0];
-		SummarizeCplusplus summarizer = new SummarizeCplusplus(fileDirectory);
-		summarizer.type =Integer.valueOf(args[1]);
-		summarizer.getStatistics(fileDirectory, summarizer.type);
-	}
 
-	private void getStatistics(String fileDir, int type) {
+	public void getStatistics() {
 
 		String name;
 		int number;
 		if(type==0){
-			totalStatistics = new CsvWriter(fileDir+"TotalStatistics_line.csv");
+			totalStatistics = new CsvWriter(fdir+"TotalStatistics_line.csv");
 			totalStatistics.setComment('#');
 			initializeLine();
 		}
 		else if(type == 1){
-			totalStatistics = new CsvWriter(fileDir+"TotalStatistics_stat.csv");
+			totalStatistics = new CsvWriter(fdir+"TotalStatistics_stat.csv");
 			totalStatistics.setComment('#');
-			stat1 = new CsvWriter(fileDir+"TotalStatistics_stat1.csv");
-			stat2 = new CsvWriter(fileDir+"TotalStatistics_stat2.csv");
+			stat1 = new CsvWriter(fdir+"TotalStatistics_stat1.csv");
+			stat2 = new CsvWriter(fdir+"TotalStatistics_stat2.csv");
 			initializeStatement();
 		}
 		else{
@@ -146,7 +144,7 @@ public class SummarizeCplusplus {
 			for (int i = 0; i < numProject; i++) {
 				fileName = listOfFiles[i].getName();
 				if (listOfFiles[i].isFile()&&fileName.endsWith(".txt")) {
-					fstream = new FileInputStream(fileDir+fileName);
+					fstream = new FileInputStream(fdir+fileName);
 					in = new DataInputStream(fstream);
 					br = new BufferedReader(new InputStreamReader(in));
 					str = br.readLine();

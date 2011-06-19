@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 import com.csvreader.CsvWriter;
 
 
-public class SummarizeJava {
+public class SummarizeJava implements Summarizer {
 
 	public int numFile;
 	public int numStatement;
@@ -49,6 +49,7 @@ public class SummarizeJava {
 	public int numOther;
 
 	String fileName;
+	String fdir;
 	int type;
 	int index = 0;
 	String number;
@@ -65,8 +66,10 @@ public class SummarizeJava {
 	CsvWriter totalStatistics;
 	CsvWriter stat1;
 	CsvWriter stat2;
-	public SummarizeJava(String fileDir){
+	public SummarizeJava(String fileDir, int statType){
 		resetStatementNumber();
+		fdir = fileDir;
+		this.type = statType;
 		index = 0;
 		fstream = null;
 		br = null;
@@ -115,27 +118,21 @@ public class SummarizeJava {
 		numMethodCallLine = 0;
 		numOther = 0;
 	}
-	public static void main(String args[]){
-		String fileDirectory = args[0];
-		SummarizeJava summarizer = new SummarizeJava(fileDirectory);
-		summarizer.type =Integer.valueOf(args[1]);
-		summarizer.getStatistics(fileDirectory, summarizer.type);
-	}
 
-	private void getStatistics(String fileDir, int type) {
+	public void getStatistics() {
 
 		String name;
 		int number;
 		if(type==0){
-			totalStatistics = new CsvWriter(fileDir+"TotalStatistics_line.csv");
+			totalStatistics = new CsvWriter(fdir+"TotalStatistics_line.csv");
 			totalStatistics.setComment('#');
 			initializeLine();
 		}
 		else if(type == 1){
-			totalStatistics = new CsvWriter(fileDir+"TotalStatistics_stat.csv");
+			totalStatistics = new CsvWriter(fdir+"TotalStatistics_stat.csv");
 			totalStatistics.setComment('#');
-			stat1 = new CsvWriter(fileDir+"TotalStatistics_stat1.csv");
-			stat2 = new CsvWriter(fileDir+"TotalStatistics_stat2.csv");
+			stat1 = new CsvWriter(fdir+"TotalStatistics_stat1.csv");
+			stat2 = new CsvWriter(fdir+"TotalStatistics_stat2.csv");
 			initializeStatement();
 		}
 		else{
@@ -146,7 +143,7 @@ public class SummarizeJava {
 			for (int i = 0; i < numProject; i++) {
 				fileName = listOfFiles[i].getName();
 				if (listOfFiles[i].isFile()&&fileName.endsWith(".txt")) {
-					fstream = new FileInputStream(fileDir+fileName);
+					fstream = new FileInputStream(fdir+fileName);
 					in = new DataInputStream(fstream);
 					br = new BufferedReader(new InputStreamReader(in));
 					str = br.readLine();
