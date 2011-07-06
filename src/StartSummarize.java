@@ -11,8 +11,11 @@ public class StartSummarize {
 		if(langType.equals("java")){
 			summarizer = new SummarizeJava(folddir, type);
 		}
-		else if(langType.equals("c++")){
+		else if(langType.equals("C++")){
 			summarizer = new SummarizeCplusplus(folddir, type);
+		}
+		else if(langType.equals("C")){
+			summarizer = new SummarizeC(folddir, type);
 		}
 	}
 

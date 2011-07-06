@@ -11,17 +11,18 @@ import com.csvreader.CsvWriter;
 public class SummarizeCplusplus implements Summarizer {
 
 	public int numFile;
-	public int numStatement;
 	public int numClass;
+	public int numClassDecl;
 	public int numStruct;
 	public int numTotalLine;
-	public int numNoCommentLine;
+	public int numCommentLine;
+	public int numBlankLine;
 	public int numExecuteLine;
 	public int numMethodCall;
 	public int numIf;
 	public int numAssignment;
-	public int numMethod;
-	public int numMethodDecl;
+	public int numFunction;
+	public int numFunctionDecl;
 	public int numLoop;
 	public int numTry;
 	public int numSwitch;
@@ -30,12 +31,12 @@ public class SummarizeCplusplus implements Summarizer {
 	public int numExprstmt;
 	public int numExpr;
 	public int numConstructor;
+	public int numDestructor;
 	public int numParamlist;
 	public int numParam;
 	public int numArgulist;
 	public int numArgu;
 	public int numBlock;
-	public int numEmpty;
 	public int numContinue;
 	public int numBreak;
 	public int numReturn;
@@ -43,11 +44,9 @@ public class SummarizeCplusplus implements Summarizer {
 	public int numElse;
 	public int numWhile;
 	public int numCase;
-	public int numSynch;
 	public int numCatch;
-	public int numLineInIf;
-	public int numMethodCallLine;
-	public int numOther;
+	public int numMacro;
+	public int numUnion;
 
 	String fileName;
 	String fdir;
@@ -82,16 +81,17 @@ public class SummarizeCplusplus implements Summarizer {
 	}
 	private void resetStatementNumber() {
 		numFile = 0;
-		numStatement = 0;
 		numClass = 0;
+		numClassDecl = 0;
+		numStruct = 0;
 		numTotalLine = 0;
-		numNoCommentLine = 0;
-		numExecuteLine = 0;
+		numCommentLine = 0;
+		numBlankLine = 0;
 		numMethodCall = 0;
 		numIf = 0;
 		numAssignment = 0;
-		numMethod = 0;
-		numMethodDecl = 0;
+		numFunction = 0;
+		numFunctionDecl = 0;
 		numLoop = 0;
 		numTry = 0;
 		numSwitch = 0;
@@ -100,12 +100,12 @@ public class SummarizeCplusplus implements Summarizer {
 		numExprstmt = 0;
 		numExpr = 0;
 		numConstructor = 0;
+		numDestructor = 0;
 		numParamlist = 0;
 		numParam = 0;
 		numArgulist = 0;
 		numArgu = 0;
 		numBlock = 0;
-		numEmpty = 0;
 		numContinue = 0;
 		numBreak = 0;
 		numReturn = 0;
@@ -113,11 +113,9 @@ public class SummarizeCplusplus implements Summarizer {
 		numElse = 0;
 		numWhile = 0;
 		numCase = 0;
-		numSynch = 0;
 		numCatch = 0;
-		numLineInIf = 0;
-		numMethodCallLine = 0;
-		numOther = 0;
+		numMacro = 0;
+		numUnion = 0;
 	}
 
 	public void getStatistics() {
@@ -157,6 +155,8 @@ public class SummarizeCplusplus implements Summarizer {
 						}
 						str = br.readLine();
 					}
+					numExecuteLine = numTotalLine - numCommentLine - numBlankLine;
+					numLoop = numFor + numWhile;
 					if(type == 0){
 						writeLine(proNum, fileName);
 					}
@@ -187,12 +187,14 @@ public class SummarizeCplusplus implements Summarizer {
 			totalStatistics.write(String.valueOf(numMethodCall));
 			totalStatistics.write(String.valueOf(numIf));
 			totalStatistics.write(String.valueOf(numAssignment));
-			totalStatistics.write(String.valueOf(numMethod));
-			totalStatistics.write(String.valueOf(numMethodDecl));
+			totalStatistics.write(String.valueOf(numFunction));
+			totalStatistics.write(String.valueOf(numFunctionDecl));
 			totalStatistics.write(String.valueOf(numTry));
 			totalStatistics.write(String.valueOf(numSwitch));
+			totalStatistics.write(String.valueOf(numClassDecl));
 			totalStatistics.write(String.valueOf(numDecl));
 			totalStatistics.write(String.valueOf(numConstructor));
+			totalStatistics.write(String.valueOf(numDestructor));
 			totalStatistics.write(String.valueOf(numParam));
 			totalStatistics.write(String.valueOf(numArgu));
 			totalStatistics.write(String.valueOf(numBlock));
@@ -205,25 +207,23 @@ public class SummarizeCplusplus implements Summarizer {
 			totalStatistics.write(String.valueOf(numCase));
 			totalStatistics.write(String.valueOf(numCatch));
 			totalStatistics.endRecord();
-
+/*
 			stat1.write(String.valueOf(proNum));
 			stat1.write(filename.substring(0, filename.indexOf(".")));
 			stat1.write(String.valueOf(numMethodCall));
 			stat1.write(String.valueOf(numIf));
 			stat1.write(String.valueOf(numAssignment));
-			stat1.write(String.valueOf(numMethod));
+			stat1.write(String.valueOf(numFunction));
 			stat1.write(String.valueOf(numDecl));
 			stat1.write(String.valueOf(numParam));
 			stat1.write(String.valueOf(numArgu));
 			stat1.write(String.valueOf(numBlock));
 			stat1.write(String.valueOf(numReturn));
-			numOther = numMethodDecl+numTry+numSwitch+numConstructor+numContinue+numBreak+numFor+numElse+numWhile+numCase+numCatch;
-			stat1.write(String.valueOf(numOther));
 			stat1.endRecord();
 
 			stat2.write(String.valueOf(proNum));
 			stat2.write(filename.substring(0, filename.indexOf(".")));
-			stat2.write(String.valueOf(numMethodDecl));
+			stat2.write(String.valueOf(numFunctionDecl));
 			stat2.write(String.valueOf(numTry));
 			stat2.write(String.valueOf(numSwitch));
 			stat2.write(String.valueOf(numConstructor));
@@ -235,6 +235,7 @@ public class SummarizeCplusplus implements Summarizer {
 			stat2.write(String.valueOf(numCase));
 			stat2.write(String.valueOf(numCatch));
 			stat2.endRecord();
+			*/
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -243,11 +244,10 @@ public class SummarizeCplusplus implements Summarizer {
 		try{
 			totalStatistics.write(String.valueOf(proNum));
 			totalStatistics.write(filename.substring(0, filename.indexOf(".")));
-			totalStatistics.write(String.valueOf(numFile));
-			totalStatistics.write(String.valueOf(numStatement));
+//			totalStatistics.write(String.valueOf(numFile));
 			totalStatistics.write(String.valueOf(numClass));
+			totalStatistics.write(String.valueOf(numStruct));
 			totalStatistics.write(String.valueOf(numTotalLine));
-			totalStatistics.write(String.valueOf(numNoCommentLine));
 			totalStatistics.write(String.valueOf(numExecuteLine));
 			totalStatistics.write(String.valueOf(numMethodCall));
 			percent = (double)numMethodCall/numExecuteLine;
@@ -258,11 +258,11 @@ public class SummarizeCplusplus implements Summarizer {
 			totalStatistics.write(String.valueOf(numAssignment));
 			percent = (double)numAssignment/numExecuteLine;
 			totalStatistics.write(String.valueOf((double)Math.round(percent*10000)/10000));
-			totalStatistics.write(String.valueOf(numMethod));
-			percent = (double)numMethod/numExecuteLine;
+			totalStatistics.write(String.valueOf(numFunction));
+			percent = (double)numFunction/numExecuteLine;
 			totalStatistics.write(String.valueOf((double)Math.round(percent*10000)/10000));
-			totalStatistics.write(String.valueOf(numMethodDecl));
-			percent = (double)numMethodDecl/numExecuteLine;
+			totalStatistics.write(String.valueOf(numFunctionDecl));
+			percent = (double)numFunctionDecl/numExecuteLine;
 			totalStatistics.write(String.valueOf((double)Math.round(percent*10000)/10000));
 			totalStatistics.write(String.valueOf(numLoop));
 			percent = (double)numLoop/numExecuteLine;
@@ -273,6 +273,9 @@ public class SummarizeCplusplus implements Summarizer {
 			totalStatistics.write(String.valueOf(numSwitch));
 			percent = (double)numSwitch/numExecuteLine;
 			totalStatistics.write(String.valueOf((double)Math.round(percent*10000)/10000));
+			totalStatistics.write(String.valueOf(numClassDecl));
+			percent = (double)numClassDecl/numExecuteLine;
+			totalStatistics.write(String.valueOf((double)Math.round(percent*10000)/10000));			
 			totalStatistics.write(String.valueOf(numDeclstmt));
 			percent = (double)numDeclstmt/numExecuteLine;
 			totalStatistics.write(String.valueOf((double)Math.round(percent*10000)/10000));
@@ -288,6 +291,9 @@ public class SummarizeCplusplus implements Summarizer {
 			totalStatistics.write(String.valueOf(numConstructor));
 			percent = (double)numConstructor/numExecuteLine;
 			totalStatistics.write(String.valueOf((double)Math.round(percent*10000)/10000));
+			totalStatistics.write(String.valueOf(numDestructor));
+			percent = (double)numDestructor/numExecuteLine;
+			totalStatistics.write(String.valueOf((double)Math.round(percent*10000)/10000));
 			totalStatistics.write(String.valueOf(numParamlist));
 			percent = (double)numParamlist/numExecuteLine;
 			totalStatistics.write(String.valueOf((double)Math.round(percent*10000)/10000));
@@ -302,9 +308,6 @@ public class SummarizeCplusplus implements Summarizer {
 			totalStatistics.write(String.valueOf((double)Math.round(percent*10000)/10000));
 			totalStatistics.write(String.valueOf(numBlock));
 			percent = (double)numBlock/numExecuteLine;
-			totalStatistics.write(String.valueOf((double)Math.round(percent*10000)/10000));
-			totalStatistics.write(String.valueOf(numEmpty));
-			percent = (double)numEmpty/numExecuteLine;
 			totalStatistics.write(String.valueOf((double)Math.round(percent*10000)/10000));
 			totalStatistics.write(String.valueOf(numContinue));
 			percent = (double)numContinue/numExecuteLine;
@@ -327,17 +330,14 @@ public class SummarizeCplusplus implements Summarizer {
 			totalStatistics.write(String.valueOf(numCase));
 			percent = (double)numCase/numExecuteLine;
 			totalStatistics.write(String.valueOf((double)Math.round(percent*10000)/10000));
-			totalStatistics.write(String.valueOf(numSynch));
-			percent = (double)numSynch/numExecuteLine;
-			totalStatistics.write(String.valueOf((double)Math.round(percent*10000)/10000));
 			totalStatistics.write(String.valueOf(numCatch));
 			percent = (double)numCatch/numExecuteLine;
 			totalStatistics.write(String.valueOf((double)Math.round(percent*10000)/10000));
-			totalStatistics.write(String.valueOf(numLineInIf));
-			percent = (double)numLineInIf/numExecuteLine;
-			totalStatistics.write(String.valueOf((double)Math.round(percent*10000)/10000));
-			totalStatistics.write(String.valueOf(numMethodCallLine));
-			percent = (double)numMethodCallLine/numExecuteLine;
+			totalStatistics.write(String.valueOf(numMacro));
+			percent = (double)numMacro/numExecuteLine;
+			totalStatistics.write(String.valueOf((double)Math.round(percent*10000)/10000));			
+			totalStatistics.write(String.valueOf(numUnion));
+			percent = (double)numUnion/numExecuteLine;
 			totalStatistics.write(String.valueOf((double)Math.round(percent*10000)/10000));
 			totalStatistics.endRecord();
 		} catch (IOException e) {
@@ -349,22 +349,25 @@ public class SummarizeCplusplus implements Summarizer {
 		if(name.equals("Files")){
 			numFile = number;
 		}
-		if(name.equals("Statement")){
-			numStatement = number;
-		}
-		if(name.equals("Class")){
+		if(name.equals("Classes")){
 			numClass = number;
 		}
-		if(name.equals("Total Lines")){
+		if(name.equals("Class declaration")){
+			numClassDecl = number;
+		}
+		if(name.equals("Struct")){
+			numStruct = number;
+		}
+		if(name.equals("Total line")){
 			numTotalLine = number;
 		}
-		if(name.equals("No Comment Lines")){
-			numNoCommentLine = number;
+		if(name.equals("Comment line")){
+			numCommentLine = number;
 		}
-		if(name.equals("Execute Code Lines")){
-			numExecuteLine = number;
+		if(name.equals("Blank line")){
+			numBlankLine = number;
 		}
-		if(name.equals("Method call")){
+		if(name.equals("Calls")){
 			numMethodCall = number;
 		}
 		if(name.equals("If")){
@@ -373,14 +376,11 @@ public class SummarizeCplusplus implements Summarizer {
 		if(name.equals("Assignment")){
 			numAssignment = number;
 		}
-		if(name.equals("Method")){
-			numMethod = number;
+		if(name.equals("Function")){
+			numFunction = number;
 		}
-		if(name.equals("Method declaration")){
-			numMethodDecl = number;
-		}
-		if(name.equals("Loop")){
-			numLoop = number;
+		if(name.equals("Function declaration")){
+			numFunctionDecl = number;
 		}
 
 		if(name.equals("Try")){
@@ -404,6 +404,9 @@ public class SummarizeCplusplus implements Summarizer {
 		if(name.equals("Constructor")){
 			numConstructor = number;
 		}
+		if(name.equals("Destructor")){
+			numDestructor = number;
+		}
 		if(name.equals("Parameter list")){
 			numParamlist = number;
 		}
@@ -418,9 +421,6 @@ public class SummarizeCplusplus implements Summarizer {
 		}
 		if(name.equals("Block")){
 			numBlock = number;
-		}
-		if(name.equals("Empty")){
-			numEmpty = number;
 		}
 		if(name.equals("Continue")){
 			numContinue = number;
@@ -443,18 +443,16 @@ public class SummarizeCplusplus implements Summarizer {
 		if(name.equals("Case")){
 			numCase = number;
 		}
-		if(name.equals("Synchronized")){
-			numSynch = number;
-		}
 		if(name.equals("Catch")){
 			numCatch = number;
 		}
-		if(name.equals("Lines in if")){
-			numLineInIf = number;
+		if(name.equals("Macro")){
+			numMacro = number;
 		}
-		if(name.equals("Lines containing method call")){
-			numMethodCallLine = number;
+		if(name.equals("Union")){
+			numUnion = number;
 		}
+		
 	}
 
 	private void initializeLine() {
@@ -462,11 +460,10 @@ public class SummarizeCplusplus implements Summarizer {
 			//			totalStatistics.writeComment("Total Statistics with Line Percent for java project"+"\n");
 			totalStatistics.write("Number");
 			totalStatistics.write("Project");
-			totalStatistics.write("File");
-			totalStatistics.write("Statement");
+//			totalStatistics.write("File");
 			totalStatistics.write("Class");
+			totalStatistics.write("Struct");
 			totalStatistics.write("TotalLines");
-			totalStatistics.write("NoCommentLines");
 			totalStatistics.write("ExecuteLines");
 			totalStatistics.write("MethodCall");
 			totalStatistics.write("MethodCall_percent");
@@ -474,10 +471,10 @@ public class SummarizeCplusplus implements Summarizer {
 			totalStatistics.write("If_percent");
 			totalStatistics.write("Assignment");
 			totalStatistics.write("Assignment_percent");
-			totalStatistics.write("Method");
-			totalStatistics.write("Method_percent");
-			totalStatistics.write("MethodDeclaration");
-			totalStatistics.write("MethodDeclaration_percent");
+			totalStatistics.write("Function");
+			totalStatistics.write("Function_percent");
+			totalStatistics.write("FunctionDeclaration");
+			totalStatistics.write("FunctionDeclaration_percent");
 			totalStatistics.write("Loop");
 			totalStatistics.write("Loop_percent");
 			totalStatistics.write("Try");
@@ -496,6 +493,8 @@ public class SummarizeCplusplus implements Summarizer {
 			totalStatistics.write("Expression_percent");
 			totalStatistics.write("Constructor");
 			totalStatistics.write("Constructor_percent");
+			totalStatistics.write("Destructor");
+			totalStatistics.write("Destructor_percent");
 			totalStatistics.write("ParameterList");
 			totalStatistics.write("ParameterList_percent");
 			totalStatistics.write("Parameter");
@@ -506,8 +505,6 @@ public class SummarizeCplusplus implements Summarizer {
 			totalStatistics.write("Argument_percent");
 			totalStatistics.write("Block");
 			totalStatistics.write("Block_percent");
-			totalStatistics.write("Empty");
-			totalStatistics.write("Empty_percent");
 			totalStatistics.write("Continue");
 			totalStatistics.write("Continue_percent");
 			totalStatistics.write("Break");
@@ -522,14 +519,12 @@ public class SummarizeCplusplus implements Summarizer {
 			totalStatistics.write("While_percent");
 			totalStatistics.write("Case");
 			totalStatistics.write("Case_percent");
-			totalStatistics.write("Synchronized");
-			totalStatistics.write("Synchronized_percent");
 			totalStatistics.write("Catch");
 			totalStatistics.write("Catch_percent");
-			totalStatistics.write("Lines_in_if");
-			totalStatistics.write("LinesInIf_percent");
-			totalStatistics.write("MethodCallLine");
-			totalStatistics.write("MethodCallLine_percent");
+			totalStatistics.write("Macro");
+			totalStatistics.write("Macro_percent");
+			totalStatistics.write("Union");
+			totalStatistics.write("Union_percent");
 			totalStatistics.endRecord();
 		}catch (IOException e) {
 			e.printStackTrace();
@@ -544,12 +539,14 @@ public class SummarizeCplusplus implements Summarizer {
 			totalStatistics.write("MethodCall");
 			totalStatistics.write("If");
 			totalStatistics.write("Assignment");
-			totalStatistics.write("Method");
-			totalStatistics.write("MethodDeclaration");
+			totalStatistics.write("Function");
+			totalStatistics.write("FunctionDeclaration");
 			totalStatistics.write("Try");
 			totalStatistics.write("Switch");
+			totalStatistics.write("ClassDeclaration");
 			totalStatistics.write("Declaration");
 			totalStatistics.write("Constructor");
+			totalStatistics.write("Destructor");
 			totalStatistics.write("Parameter");
 			totalStatistics.write("Argument");
 			totalStatistics.write("Block");
@@ -562,7 +559,7 @@ public class SummarizeCplusplus implements Summarizer {
 			totalStatistics.write("Case");
 			totalStatistics.write("Catch");
 			totalStatistics.endRecord();
-
+/*
 			stat1.write("Number");
 			stat1.write("Project");
 			stat1.write("MethodCall");
@@ -591,6 +588,7 @@ public class SummarizeCplusplus implements Summarizer {
 			stat2.write("Case");
 			stat2.write("Catch");
 			stat2.endRecord();
+			*/
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
