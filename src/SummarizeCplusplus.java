@@ -47,6 +47,8 @@ public class SummarizeCplusplus implements Summarizer {
 	public int numCatch;
 	public int numMacro;
 	public int numUnion;
+	public int numLocalFunctionCall;
+	public int numLibFunctionCall;
 
 	String fileName;
 	String fdir;
@@ -339,6 +341,8 @@ public class SummarizeCplusplus implements Summarizer {
 			totalStatistics.write(String.valueOf(numUnion));
 			percent = (double)numUnion/numExecuteLine;
 			totalStatistics.write(String.valueOf((double)Math.round(percent*10000)/10000));
+			totalStatistics.write(String.valueOf(numLocalFunctionCall));
+			totalStatistics.write(String.valueOf(numLibFunctionCall));
 			totalStatistics.endRecord();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -452,6 +456,12 @@ public class SummarizeCplusplus implements Summarizer {
 		if(name.equals("Union")){
 			numUnion = number;
 		}
+		if(name.equals("Local function call")){
+			numLocalFunctionCall = number;
+		}
+		if(name.equals("Library function call")){
+			numLibFunctionCall = number;
+		}
 		
 	}
 
@@ -525,6 +535,8 @@ public class SummarizeCplusplus implements Summarizer {
 			totalStatistics.write("Macro_percent");
 			totalStatistics.write("Union");
 			totalStatistics.write("Union_percent");
+			totalStatistics.write("LocalFunctionCall");
+			totalStatistics.write("LibFunctionCall");
 			totalStatistics.endRecord();
 		}catch (IOException e) {
 			e.printStackTrace();

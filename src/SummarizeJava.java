@@ -47,6 +47,8 @@ public class SummarizeJava implements Summarizer {
 	public int numLineInIf;
 	public int numMethodCallLine;
 	public int numOther;
+	public int numLocalMethodCall;
+	public int numLibMethodCall;
 
 	String fileName;
 	String fdir;
@@ -338,6 +340,8 @@ public class SummarizeJava implements Summarizer {
 			totalStatistics.write(String.valueOf(numMethodCallLine));
 			percent = (double)numMethodCallLine/numExecuteLine;
 			totalStatistics.write(String.valueOf((double)Math.round(percent*10000)/10000));
+			totalStatistics.write(String.valueOf(numLocalMethodCall));
+			totalStatistics.write(String.valueOf(numLibMethodCall));
 			totalStatistics.endRecord();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -529,6 +533,8 @@ public class SummarizeJava implements Summarizer {
 			totalStatistics.write("LinesInIf_percent");
 			totalStatistics.write("MethodCallLine");
 			totalStatistics.write("MethodCallLine_percent");
+			totalStatistics.write("LocalMethodCall");
+			totalStatistics.write("LibMethodCall");
 			totalStatistics.endRecord();
 		}catch (IOException e) {
 			e.printStackTrace();

@@ -44,6 +44,8 @@ public class SummarizeC implements Summarizer {
 	public int numCatch;
 	public int numGoto;
 	public int numLabel;
+	public int numLocalFunctionCall;
+	public int numLibFunctionCall;
 
 	String fileName;
 	String fdir;
@@ -182,12 +184,8 @@ public class SummarizeC implements Summarizer {
 			totalStatistics.write(String.valueOf(numAssignment));
 			totalStatistics.write(String.valueOf(numFunction));
 			totalStatistics.write(String.valueOf(numFunctionDecl));
-			totalStatistics.write(String.valueOf(numTry));
 			totalStatistics.write(String.valueOf(numSwitch));
 			totalStatistics.write(String.valueOf(numDecl));
-			totalStatistics.write(String.valueOf(numParam));
-			totalStatistics.write(String.valueOf(numArgu));
-			totalStatistics.write(String.valueOf(numBlock));
 			totalStatistics.write(String.valueOf(numContinue));
 			totalStatistics.write(String.valueOf(numBreak));
 			totalStatistics.write(String.valueOf(numReturn));
@@ -195,7 +193,7 @@ public class SummarizeC implements Summarizer {
 			totalStatistics.write(String.valueOf(numElse));
 			totalStatistics.write(String.valueOf(numWhile));
 			totalStatistics.write(String.valueOf(numCase));
-			totalStatistics.write(String.valueOf(numCatch));
+			totalStatistics.write(String.valueOf(numDo));
 			totalStatistics.endRecord();
 /*
 			stat1.write(String.valueOf(proNum));
@@ -316,6 +314,8 @@ public class SummarizeC implements Summarizer {
 			totalStatistics.write(String.valueOf(numLabel));
 			percent = (double)numLabel/numExecuteLine;
 			totalStatistics.write(String.valueOf((double)Math.round(percent*10000)/10000));
+			totalStatistics.write(String.valueOf(numLocalFunctionCall));
+			totalStatistics.write(String.valueOf(numLibFunctionCall));
 			totalStatistics.endRecord();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -413,6 +413,12 @@ public class SummarizeC implements Summarizer {
 		if(name.equals("Label")){
 			numLabel = number;
 		}
+		if(name.equals("Local function call")){
+			numLocalFunctionCall = number;
+		}
+		if(name.equals("Library function call")){
+			numLibFunctionCall = number;
+		}
 		
 	}
 
@@ -477,6 +483,8 @@ public class SummarizeC implements Summarizer {
 			totalStatistics.write("Goto_percent");
 			totalStatistics.write("Label");
 			totalStatistics.write("Label_percent");
+			totalStatistics.write("LocalFunctionCall");
+			totalStatistics.write("LibFunctionCall");
 			totalStatistics.endRecord();
 		}catch (IOException e) {
 			e.printStackTrace();
@@ -488,20 +496,13 @@ public class SummarizeC implements Summarizer {
 			//			totalStatistics.writeComment("Total Statistics with Statemetn Percent for java project"+"\n");
 			totalStatistics.write("Number");
 			totalStatistics.write("Project");
-			totalStatistics.write("MethodCall");
+			totalStatistics.write("Call");
 			totalStatistics.write("If");
 			totalStatistics.write("Assignment");
 			totalStatistics.write("Function");
 			totalStatistics.write("FunctionDeclaration");
-			totalStatistics.write("Try");
 			totalStatistics.write("Switch");
-			totalStatistics.write("ClassDeclaration");
 			totalStatistics.write("Declaration");
-			totalStatistics.write("Constructor");
-			totalStatistics.write("Destructor");
-			totalStatistics.write("Parameter");
-			totalStatistics.write("Argument");
-			totalStatistics.write("Block");
 			totalStatistics.write("Continue");
 			totalStatistics.write("Break");
 			totalStatistics.write("Return");
@@ -509,7 +510,7 @@ public class SummarizeC implements Summarizer {
 			totalStatistics.write("Else");
 			totalStatistics.write("While");
 			totalStatistics.write("Case");
-			totalStatistics.write("Catch");
+			totalStatistics.write("Do");
 			totalStatistics.endRecord();
 /*
 			stat1.write("Number");
