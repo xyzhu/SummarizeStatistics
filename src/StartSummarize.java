@@ -3,24 +3,24 @@ public class StartSummarize {
 	Summarizer summarizer;
 	public static void main(String args[]){
 		StartSummarize starter = new StartSummarize();
-		starter.initialize(args[0], args[1], Integer.valueOf(args[2]));
+		starter.initialize(args[0], args[1]);
 		starter.summarize();
 	}
 
-	public void initialize(String langType, String folddir, int type){
+	public void initialize(String langType, String folddir){
 		if(langType.equals("java")){
-			summarizer = new SummarizeJava(folddir, type);
+			summarizer = new SummarizeJava(folddir);
 		}
-		else if(langType.equals("C++")){
-			summarizer = new SummarizeCplusplus(folddir, type);
+		else if(langType.equals("c++")){
+			summarizer = new SummarizeCplusplus(folddir);
 		}
-		else if(langType.equals("C")){
-			summarizer = new SummarizeC(folddir, type);
+		else if(langType.equals("c")){
+			summarizer = new SummarizeC(folddir);
 		}
 	}
 
 	public void summarize()
 	{
-		summarizer.getStatistics();
+		summarizer.writeStatistics();
 	}
 }
