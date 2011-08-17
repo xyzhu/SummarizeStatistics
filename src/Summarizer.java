@@ -41,26 +41,27 @@ public abstract class Summarizer {
 	public int numLibFunctionCall = 0;
 	public int numZeroOpAssign = 0;
 	public int numZeroOpCallAssign = 0;
+	public int numConstAssign = 0;
 	public int numExecuteLine = 0;
 	public int numLoop = 0;
 
-	public int numStruct = 0;
-	public int numGoto = 0;
-	public int numLabel = 0;
-
-	public int numClass;
-	public int numClassdecl = 0;
-	public int numConstructordecl = 0;
-	public int numDestructordecl = 0;
-	public int numConstructor = 0;
-	public int numDestructor = 0;
-	public int numMacro = 0;
-	public int numUnion = 0;
-	public int numTry = 0;
-	public int numCatch = 0;
-	public int numThrow = 0;
-
-	public int numSynchronized = 0;
+	//	public int numStruct = 0;
+	//	public int numGoto = 0;
+	//	public int numLabel = 0;
+	//
+	//	public int numClass;
+	//	public int numClassdecl = 0;
+	//	public int numConstructordecl = 0;
+	//	public int numDestructordecl = 0;
+	//	public int numConstructor = 0;
+	//	public int numDestructor = 0;
+	//	public int numMacro = 0;
+	//	public int numUnion = 0;
+	//	public int numTry = 0;
+	//	public int numCatch = 0;
+	//	public int numThrow = 0;
+	//
+	//	public int numSynchronized = 0;
 
 	CsvWriter totalWriter;
 	String fdir;
@@ -70,6 +71,7 @@ public abstract class Summarizer {
 	DataInputStream in;
 	BufferedReader br;
 	int numProject;
+	String resulttype;
 
 	public void writeStatistics(){
 		folder = new File(fdir);
@@ -83,8 +85,14 @@ public abstract class Summarizer {
 		int proNum = 0;
 
 		createFile();
-		writeSameColumnName();
-		writeDiffColumnName();
+		if(resulttype.equals("line")){
+			writeSameColumnName();
+			writeDiffColumnName();
+		}
+		else{
+			writeSameStatColumnName();
+			writeDiffStatColumnName();
+		}
 		try {
 			for (int i = 0; i < numProject; i++) {
 				fileName = listOfFiles[i].getName();
@@ -105,8 +113,14 @@ public abstract class Summarizer {
 					}
 					numExecuteLine = numTotalLine - numCommentLine - numBlankLine;
 					numLoop = numFor + numWhile;
-					writeSameNumber(proNum, fileName);
-					writeDiffNumber(proNum, fileName);
+					if(resulttype.equals("line")){
+						writeSameNumber(proNum, fileName);
+						writeDiffNumber(proNum, fileName);
+					}
+					else{
+						writeSameStatNumber(proNum, fileName);
+						writeDiffStatNumber(proNum, fileName);
+					}
 					proNum++;
 				}
 			}
@@ -114,6 +128,54 @@ public abstract class Summarizer {
 				in.close();
 			}
 			totalWriter.close();
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	private void writeSameStatNumber(int proNum, String fileName) {
+		try{
+			totalWriter.write(String.valueOf(proNum));
+			totalWriter.write(String.valueOf(fileName.substring(0, fileName.indexOf(".txt"))));
+			totalWriter.write(String.valueOf(numCall));
+			totalWriter.write(String.valueOf(numIf));
+			totalWriter.write(String.valueOf(numAssignment));
+			totalWriter.write(String.valueOf(numFunction));
+			totalWriter.write(String.valueOf(numFunctionDecl));
+			totalWriter.write(String.valueOf(numDecl));
+			totalWriter.write(String.valueOf(numExpr));
+			totalWriter.write(String.valueOf(numContinue));
+			totalWriter.write(String.valueOf(numBreak));
+			totalWriter.write(String.valueOf(numReturn));
+			totalWriter.write(String.valueOf(numFor));
+			totalWriter.write(String.valueOf(numElse));
+			totalWriter.write(String.valueOf(numWhile));
+			totalWriter.write(String.valueOf(numDo));
+			totalWriter.write(String.valueOf(numSwitch));
+			totalWriter.write(String.valueOf(numCase));
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	private void writeSameStatColumnName() {
+		try{
+			totalWriter.write("Number");
+			totalWriter.write("Project");
+			totalWriter.write("FunctionCall");
+			totalWriter.write("If");
+			totalWriter.write("Assignment");
+			totalWriter.write("Function");
+			totalWriter.write("FunctionDeclaration");
+			totalWriter.write("Declaration");
+			totalWriter.write("Expression");
+			totalWriter.write("Continue");
+			totalWriter.write("Break");
+			totalWriter.write("Return");
+			totalWriter.write("For");
+			totalWriter.write("Else");
+			totalWriter.write("While");
+			totalWriter.write("Do");
+			totalWriter.write("Switch");
+			totalWriter.write("Case");
 		}catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -178,6 +240,7 @@ public abstract class Summarizer {
 			totalWriter.write("LibFunctionCall");
 			totalWriter.write("ZeroOperatorAssign");
 			totalWriter.write("ZeroOpCallAssign");
+			totalWriter.write("ConstAssign");
 		}catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -278,6 +341,9 @@ public abstract class Summarizer {
 		if(name.equals("Zero operator call assignment")){
 			numZeroOpCallAssign = number;
 		}
+		if(name.equals("Const assignment")){
+			numConstAssign = number;
+		}
 	}
 
 
@@ -366,6 +432,7 @@ public abstract class Summarizer {
 			totalWriter.write(String.valueOf(numLibFunctionCall));
 			totalWriter.write(String.valueOf(numZeroOpAssign));
 			totalWriter.write(String.valueOf(numZeroOpCallAssign));
+			totalWriter.write(String.valueOf(numConstAssign));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -375,4 +442,6 @@ public abstract class Summarizer {
 	public abstract void writeDiffColumnName();
 	public abstract void writeDiffNumber(int i, String s);
 	public abstract void getDiffNumber(String name, int number);
+	public abstract void writeDiffStatColumnName();
+	public abstract void writeDiffStatNumber(int proNum, String fileName);
 }

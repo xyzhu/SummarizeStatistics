@@ -12,13 +12,19 @@ public class SummarizeJava extends Summarizer {
 	public int numThrow = 0;
 	public int numSynchronized = 0;
 	
-	public SummarizeJava(String folderdir){
+	public SummarizeJava(String folderdir, String type){
 		fdir = folderdir;
+		resulttype = type;
 	}
 
 	@Override
 	public void createFile() {
-		totalWriter = new CsvWriter(fdir+"TotalStatistics_java.csv");
+		if(resulttype.equals("line")){
+			totalWriter = new CsvWriter(fdir+"TotalStatistics_line_java.csv");
+		}
+		else{
+			totalWriter = new CsvWriter(fdir+"TotalStatistics__stat_java.csv");
+		}
 	}
 	@Override
 	public void writeDiffColumnName() {
@@ -71,26 +77,11 @@ public class SummarizeJava extends Summarizer {
 
 	@Override
 	public void getDiffNumber(String name, int number) {
-		if(name.equals("Struct")){
-			numStruct = number;
-		}
 		if(name.equals("Class")){
 			numClass = number;
 		}
-		if(name.equals("Class declaration")){
-			numClassdecl = number;
-		}
-		if(name.equals("Constructor declaration")){
-			numConstructordecl = number;
-		}
-		if(name.equals("Destructor declaration")){
-			numDestructordecl = number;
-		}
 		if(name.equals("Constructor")){
 			numConstructor = number;
-		}
-		if(name.equals("Destructor")){
-			numDestructor = number;
 		}
 		if(name.equals("Try")){
 			numTry = number;
@@ -103,6 +94,38 @@ public class SummarizeJava extends Summarizer {
 		}
 		if(name.equals("Synchronized")){
 			numSynchronized = number;
+		}
+	}
+
+	@Override
+	public void writeDiffStatColumnName() {
+		try {
+			totalWriter.write("Label");
+			totalWriter.write("Class");
+			totalWriter.write("Constructor");
+			totalWriter.write("Try");
+			totalWriter.write("Catch");
+			totalWriter.write("Throw");
+			totalWriter.write("Synchronized");
+			totalWriter.endRecord();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void writeDiffStatNumber(int proNum, String fileName) {
+		try {
+			totalWriter.write(String.valueOf(numLabel));
+			totalWriter.write(String.valueOf(numClass));
+			totalWriter.write(String.valueOf(numConstructor));
+			totalWriter.write(String.valueOf(numTry));
+			totalWriter.write(String.valueOf(numCatch));
+			totalWriter.write(String.valueOf(numThrow));
+			totalWriter.write(String.valueOf(numSynchronized));
+			totalWriter.endRecord();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }

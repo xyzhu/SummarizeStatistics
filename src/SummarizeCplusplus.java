@@ -4,52 +4,58 @@ import com.csvreader.CsvWriter;
 
 public class SummarizeCplusplus extends Summarizer {
 
-	public int numClass = 0;;
-    public int numStruct = 0;
-    public int numClassdecl = 0;
-    public int numConstructordecl = 0;
-    public int numDestructordecl = 0;
-    public int numConstructor = 0;
-    public int numDestructor = 0;
-    public int numMacro = 0;
-    public int numUnion = 0;
-    public int numTry = 0;
-    public int numCatch = 0;
-    public int numThrow = 0;
-    
-    public SummarizeCplusplus(String folderdir){
+	public int numClass = 0;
+	public int numStruct = 0;
+	public int numClassdecl = 0;
+	public int numConstructordecl = 0;
+	public int numDestructordecl = 0;
+	public int numConstructor = 0;
+	public int numDestructor = 0;
+	public int numMacro = 0;
+	public int numUnion = 0;
+	public int numTry = 0;
+	public int numCatch = 0;
+	public int numThrow = 0;
+
+	public SummarizeCplusplus(String folderdir, String type){
 		fdir = folderdir;
+		resulttype = type;
 	}
 
 	@Override
 	public void createFile() {
-		totalWriter = new CsvWriter(fdir+"TotalStatistics_cplusplus.csv");
+		if(resulttype.equals("line")){
+			totalWriter = new CsvWriter(fdir+"TotalStatistics_line_cpp.csv");
+		}
+		else{
+			totalWriter = new CsvWriter(fdir+"TotalStatistics_stat_cpp.csv");
+		}
 	}
 	@Override
 	public void writeDiffColumnName() {
 		try {
 			totalWriter.write("Class");
 			totalWriter.write("Struct");
-		    totalWriter.write("Classdecl");
-		    totalWriter.write("Constructordecl");
-		    totalWriter.write("Constructordecl_percent");
-		    totalWriter.write("Destructordecl");
-		    totalWriter.write("Destructordecl_percent");
-		    totalWriter.write("Constructor");
-		    totalWriter.write("Constructor_percent");
-		    totalWriter.write("Destructor");
-		    totalWriter.write("Destructor_percent");
-		    totalWriter.write("Macro");
-		    totalWriter.write("Macro_percent");
-		    totalWriter.write("Union");
-		    totalWriter.write("Union_percent");
-		    totalWriter.write("Try");
-		    totalWriter.write("Try_percent");
-		    totalWriter.write("Catch");
-		    totalWriter.write("Catch_percent");
-		    totalWriter.write("Throw");
-		    totalWriter.write("Throw_percent");
-		    totalWriter.endRecord();
+			totalWriter.write("Classdecl");
+			totalWriter.write("Constructordecl");
+			totalWriter.write("Constructordecl_percent");
+			totalWriter.write("Destructordecl");
+			totalWriter.write("Destructordecl_percent");
+			totalWriter.write("Constructor");
+			totalWriter.write("Constructor_percent");
+			totalWriter.write("Destructor");
+			totalWriter.write("Destructor_percent");
+			totalWriter.write("Macro");
+			totalWriter.write("Macro_percent");
+			totalWriter.write("Union");
+			totalWriter.write("Union_percent");
+			totalWriter.write("Try");
+			totalWriter.write("Try_percent");
+			totalWriter.write("Catch");
+			totalWriter.write("Catch_percent");
+			totalWriter.write("Throw");
+			totalWriter.write("Throw_percent");
+			totalWriter.endRecord();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -73,26 +79,26 @@ public class SummarizeCplusplus extends Summarizer {
 			totalWriter.write(String.valueOf(numDestructor));
 			percent = (double)numDestructor/numExecuteLine;
 			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
-		    totalWriter.write(String.valueOf(numMacro));
-		    percent = (double)numMacro/numExecuteLine;
+			totalWriter.write(String.valueOf(numMacro));
+			percent = (double)numMacro/numExecuteLine;
 			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
-		    totalWriter.write(String.valueOf(numUnion));
-		    percent = (double)numUnion/numExecuteLine;
+			totalWriter.write(String.valueOf(numUnion));
+			percent = (double)numUnion/numExecuteLine;
 			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
-		    totalWriter.write(String.valueOf(numTry));
-		    percent = (double)numTry/numExecuteLine;
+			totalWriter.write(String.valueOf(numTry));
+			percent = (double)numTry/numExecuteLine;
 			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
-		    totalWriter.write(String.valueOf(numCatch));
-		    percent = (double)numCatch/numExecuteLine;
+			totalWriter.write(String.valueOf(numCatch));
+			percent = (double)numCatch/numExecuteLine;
 			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
-		    totalWriter.write(String.valueOf(numThrow));
-		    percent = (double)numThrow/numExecuteLine;
+			totalWriter.write(String.valueOf(numThrow));
+			percent = (double)numThrow/numExecuteLine;
 			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
 			totalWriter.endRecord();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	    
+
 	}
 
 	@Override
@@ -132,6 +138,48 @@ public class SummarizeCplusplus extends Summarizer {
 		}
 		if(name.equals("Throw")){
 			numThrow = number;
+		}
+	}
+
+	@Override
+	public void writeDiffStatColumnName() {
+		try {
+			totalWriter.write("Class");
+			totalWriter.write("Struct");
+			totalWriter.write("Classdecl");
+			totalWriter.write("Constructordecl");
+			totalWriter.write("Destructordecl");
+			totalWriter.write("Constructor");
+			totalWriter.write("Destructor");
+			totalWriter.write("Macro");
+			totalWriter.write("Union");
+			totalWriter.write("Try");
+			totalWriter.write("Catch");
+			totalWriter.write("Throw");
+			totalWriter.endRecord();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void writeDiffStatNumber(int proNum, String fileName) {
+		try {
+			totalWriter.write(String.valueOf(numClass));
+			totalWriter.write(String.valueOf(numStruct));
+			totalWriter.write(String.valueOf(numClassdecl));
+			totalWriter.write(String.valueOf(numConstructordecl));
+			totalWriter.write(String.valueOf(numDestructordecl));
+			totalWriter.write(String.valueOf(numConstructor));
+			totalWriter.write(String.valueOf(numDestructor));
+			totalWriter.write(String.valueOf(numMacro));
+			totalWriter.write(String.valueOf(numUnion));
+			totalWriter.write(String.valueOf(numTry));
+			totalWriter.write(String.valueOf(numCatch));
+			totalWriter.write(String.valueOf(numThrow));
+			totalWriter.endRecord();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }
