@@ -23,7 +23,7 @@ public class SummarizeJava extends Summarizer {
 			totalWriter = new CsvWriter(fdir+"TotalStatistics_line_java.csv");
 		}
 		else{
-			totalWriter = new CsvWriter(fdir+"TotalStatistics__stat_java.csv");
+			totalWriter = new CsvWriter(fdir+"TotalStatistics_stat_java.csv");
 		}
 	}
 	@Override

@@ -11,7 +11,6 @@ public class SummarizeCplusplus extends Summarizer {
 	public int numDestructordecl = 0;
 	public int numConstructor = 0;
 	public int numDestructor = 0;
-	public int numMacro = 0;
 	public int numUnion = 0;
 	public int numTry = 0;
 	public int numCatch = 0;
@@ -45,8 +44,6 @@ public class SummarizeCplusplus extends Summarizer {
 			totalWriter.write("Constructor_percent");
 			totalWriter.write("Destructor");
 			totalWriter.write("Destructor_percent");
-			totalWriter.write("Macro");
-			totalWriter.write("Macro_percent");
 			totalWriter.write("Union");
 			totalWriter.write("Union_percent");
 			totalWriter.write("Try");
@@ -78,9 +75,6 @@ public class SummarizeCplusplus extends Summarizer {
 			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
 			totalWriter.write(String.valueOf(numDestructor));
 			percent = (double)numDestructor/numExecuteLine;
-			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
-			totalWriter.write(String.valueOf(numMacro));
-			percent = (double)numMacro/numExecuteLine;
 			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
 			totalWriter.write(String.valueOf(numUnion));
 			percent = (double)numUnion/numExecuteLine;
@@ -124,9 +118,6 @@ public class SummarizeCplusplus extends Summarizer {
 		if(name.equals("Destructor")){
 			numDestructor = number;
 		}
-		if(name.equals("Macro")){
-			numMacro = number;
-		}
 		if(name.equals("Union")){
 			numUnion = number;
 		}
@@ -151,7 +142,6 @@ public class SummarizeCplusplus extends Summarizer {
 			totalWriter.write("Destructordecl");
 			totalWriter.write("Constructor");
 			totalWriter.write("Destructor");
-			totalWriter.write("Macro");
 			totalWriter.write("Union");
 			totalWriter.write("Try");
 			totalWriter.write("Catch");
@@ -172,7 +162,6 @@ public class SummarizeCplusplus extends Summarizer {
 			totalWriter.write(String.valueOf(numDestructordecl));
 			totalWriter.write(String.valueOf(numConstructor));
 			totalWriter.write(String.valueOf(numDestructor));
-			totalWriter.write(String.valueOf(numMacro));
 			totalWriter.write(String.valueOf(numUnion));
 			totalWriter.write(String.valueOf(numTry));
 			totalWriter.write(String.valueOf(numCatch));
