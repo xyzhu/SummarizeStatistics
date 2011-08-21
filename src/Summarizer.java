@@ -142,7 +142,6 @@ public abstract class Summarizer {
 			totalWriter.write(String.valueOf(numFunction));
 			totalWriter.write(String.valueOf(numFunctionDecl));
 			totalWriter.write(String.valueOf(numDecl));
-			totalWriter.write(String.valueOf(numExpr));
 			totalWriter.write(String.valueOf(numContinue));
 			totalWriter.write(String.valueOf(numBreak));
 			totalWriter.write(String.valueOf(numReturn));
@@ -166,7 +165,6 @@ public abstract class Summarizer {
 			totalWriter.write("Function");
 			totalWriter.write("FunctionDeclaration");
 			totalWriter.write("Declaration");
-			totalWriter.write("Expression");
 			totalWriter.write("Continue");
 			totalWriter.write("Break");
 			totalWriter.write("Return");
