@@ -6,7 +6,6 @@ public class SummarizeCplusplus extends Summarizer {
 
 	public int numClass = 0;
 	public int numStruct = 0;
-	public int numClassdecl = 0;
 	public int numConstructordecl = 0;
 	public int numDestructordecl = 0;
 	public int numConstructor = 0;
@@ -35,7 +34,6 @@ public class SummarizeCplusplus extends Summarizer {
 		try {
 			totalWriter.write("Class");
 			totalWriter.write("Struct");
-			totalWriter.write("Classdecl");
 			totalWriter.write("Constructordecl");
 			totalWriter.write("Constructordecl_percent");
 			totalWriter.write("Destructordecl");
@@ -63,7 +61,6 @@ public class SummarizeCplusplus extends Summarizer {
 		try {
 			totalWriter.write(String.valueOf(numClass));
 			totalWriter.write(String.valueOf(numStruct));
-			totalWriter.write(String.valueOf(numClassdecl));
 			totalWriter.write(String.valueOf(numConstructordecl));
 			percent = (double)numConstructordecl/numExecuteLine;
 			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
@@ -103,9 +100,6 @@ public class SummarizeCplusplus extends Summarizer {
 		if(name.equals("Class")){
 			numClass = number;
 		}
-		if(name.equals("Class declaration")){
-			numClassdecl = number;
-		}
 		if(name.equals("Constructor declaration")){
 			numConstructordecl = number;
 		}
@@ -137,7 +131,6 @@ public class SummarizeCplusplus extends Summarizer {
 		try {
 			totalWriter.write("Class");
 			totalWriter.write("Struct");
-			totalWriter.write("Classdecl");
 			totalWriter.write("Constructordecl");
 			totalWriter.write("Destructordecl");
 			totalWriter.write("Constructor");
@@ -157,7 +150,6 @@ public class SummarizeCplusplus extends Summarizer {
 		try {
 			totalWriter.write(String.valueOf(numClass));
 			totalWriter.write(String.valueOf(numStruct));
-			totalWriter.write(String.valueOf(numClassdecl));
 			totalWriter.write(String.valueOf(numConstructordecl));
 			totalWriter.write(String.valueOf(numDestructordecl));
 			totalWriter.write(String.valueOf(numConstructor));
