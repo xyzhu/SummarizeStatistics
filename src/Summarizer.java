@@ -45,24 +45,6 @@ public abstract class Summarizer {
 	public int numExecuteLine = 0;
 	public int numLoop = 0;
 
-	//	public int numStruct = 0;
-	//	public int numGoto = 0;
-	//	public int numLabel = 0;
-	//
-	//	public int numClass;
-	//	public int numClassdecl = 0;
-	//	public int numConstructordecl = 0;
-	//	public int numDestructordecl = 0;
-	//	public int numConstructor = 0;
-	//	public int numDestructor = 0;
-	//	public int numMacro = 0;
-	//	public int numUnion = 0;
-	//	public int numTry = 0;
-	//	public int numCatch = 0;
-	//	public int numThrow = 0;
-	//
-	//	public int numSynchronized = 0;
-
 	CsvWriter totalWriter;
 	String fdir;
 	File folder;
@@ -140,11 +122,11 @@ public abstract class Summarizer {
 			totalWriter.write(String.valueOf(numIf));
 			totalWriter.write(String.valueOf(numAssignment));
 			totalWriter.write(String.valueOf(numFunction));
-			totalWriter.write(String.valueOf(numFunctionDecl));
+			totalWriter.write(String.valueOf(numReturn));
 			totalWriter.write(String.valueOf(numDecl));
 			totalWriter.write(String.valueOf(numContinue));
 			totalWriter.write(String.valueOf(numBreak));
-			totalWriter.write(String.valueOf(numReturn));
+			totalWriter.write(String.valueOf(numFunctionDecl));
 			totalWriter.write(String.valueOf(numFor));
 			totalWriter.write(String.valueOf(numElse));
 			totalWriter.write(String.valueOf(numWhile));
@@ -163,11 +145,11 @@ public abstract class Summarizer {
 			totalWriter.write("If");
 			totalWriter.write("Assignment");
 			totalWriter.write("Function");
-			totalWriter.write("FunctionDeclaration");
+			totalWriter.write("Return");
 			totalWriter.write("Declaration");
 			totalWriter.write("Continue");
 			totalWriter.write("Break");
-			totalWriter.write("Return");
+			totalWriter.write("FunctionDeclaration");
 			totalWriter.write("For");
 			totalWriter.write("Else");
 			totalWriter.write("While");
