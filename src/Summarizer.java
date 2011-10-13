@@ -39,6 +39,8 @@ public abstract class Summarizer {
 	public int numAssignment;
 	public int numLocalFunctionCall = 0;
 	public int numLibFunctionCall = 0;
+	public int numLocalGetterSetterCall = 0;
+	public int numLibGetterSetterCall = 0;
 	public int numZeroOpAssign = 0;
 	public int numZeroOpCallAssign = 0;
 	public int numConstAssign = 0;
