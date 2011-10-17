@@ -39,8 +39,6 @@ public abstract class Summarizer {
 	public int numAssignment;
 	public int numLocalFunctionCall = 0;
 	public int numLibFunctionCall = 0;
-	public int numLocalGetterSetterCall = 0;
-	public int numLibGetterSetterCall = 0;
 	public int numZeroOpAssign = 0;
 	public int numZeroOpCallAssign = 0;
 	public int numConstAssign = 0;
@@ -125,7 +123,7 @@ public abstract class Summarizer {
 			totalWriter.write(String.valueOf(numAssignment));
 			totalWriter.write(String.valueOf(numFunction));
 			totalWriter.write(String.valueOf(numReturn));
-			totalWriter.write(String.valueOf(numDecl));
+			totalWriter.write(String.valueOf(numDeclstmt));
 			totalWriter.write(String.valueOf(numContinue));
 			totalWriter.write(String.valueOf(numBreak));
 			totalWriter.write(String.valueOf(numFunctionDecl));
@@ -148,7 +146,7 @@ public abstract class Summarizer {
 			totalWriter.write("Assignment");
 			totalWriter.write("Function");
 			totalWriter.write("Return");
-			totalWriter.write("Declaration");
+			totalWriter.write("DeclStmt");
 			totalWriter.write("Continue");
 			totalWriter.write("Break");
 			totalWriter.write("FunctionDeclaration");
