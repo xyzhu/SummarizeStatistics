@@ -44,6 +44,10 @@ public abstract class Summarizer {
 	public int numConstAssign = 0;
 	public int numExecuteLine = 0;
 	public int numLoop = 0;
+	public int numDeclInDeclStmt = 0;
+	public int numDeclInFor = 0;
+	public int numParamDecl = 0;
+	public int numDeclStmtWithInit = 0;
 
 	CsvWriter totalWriter;
 	String fdir;
@@ -124,6 +128,7 @@ public abstract class Summarizer {
 			totalWriter.write(String.valueOf(numFunction));
 			totalWriter.write(String.valueOf(numReturn));
 			totalWriter.write(String.valueOf(numDeclstmt));
+			totalWriter.write(String.valueOf("numDeclStmtWithInit"));
 			totalWriter.write(String.valueOf(numContinue));
 			totalWriter.write(String.valueOf(numBreak));
 			totalWriter.write(String.valueOf(numFunctionDecl));
@@ -147,6 +152,7 @@ public abstract class Summarizer {
 			totalWriter.write("Function");
 			totalWriter.write("Return");
 			totalWriter.write("DeclStmt");
+			totalWriter.write("DeclStmtWithInit");
 			totalWriter.write("Continue");
 			totalWriter.write("Break");
 			totalWriter.write("FunctionDeclaration");
@@ -221,6 +227,9 @@ public abstract class Summarizer {
 			totalWriter.write("ZeroOperatorAssign");
 			totalWriter.write("ZeroOpCallAssign");
 			totalWriter.write("ConstAssign");
+			totalWriter.write("DeclInDeclStmt");
+			totalWriter.write("DeclInFor");
+			totalWriter.write("ParamDecl");
 		}catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -324,6 +333,18 @@ public abstract class Summarizer {
 		if(name.equals("Const assignment")){
 			numConstAssign = number;
 		}
+		if(name.equals("Declaration in declaration statement")){
+			numDeclInDeclStmt = number;
+		}
+		if(name.equals("Declaration in for")){
+			numDeclInFor = number;
+		}
+		if(name.equals("Parameter declaration")){
+			numParamDecl = number;
+		}
+		if(name.equals("Declaration statement with initialization")){
+			numDeclStmtWithInit = number;
+		}
 	}
 
 
@@ -413,6 +434,9 @@ public abstract class Summarizer {
 			totalWriter.write(String.valueOf(numZeroOpAssign));
 			totalWriter.write(String.valueOf(numZeroOpCallAssign));
 			totalWriter.write(String.valueOf(numConstAssign));
+			totalWriter.write(String.valueOf(numDeclInDeclStmt));
+			totalWriter.write(String.valueOf(numDeclInFor));
+			totalWriter.write(String.valueOf(numParamDecl));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
