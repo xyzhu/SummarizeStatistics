@@ -67,20 +67,21 @@ public abstract class Summarizer {
 		String name;
 		int number;
 		int proNum = 0;
-
+		totalWriter = null;
 		createFile();
+		
 		if(resulttype.equals("line")){
 			writeSameColumnName();
-			writeDiffColumnName();
+//			writeDiffColumnName();
 		}
-		else{
-			writeSameStatColumnName();
-			writeDiffStatColumnName();
-		}
+//		else{
+//			writeSameStatColumnName();
+//			writeDiffStatColumnName();
+//		}
 		try {
 			for (int i = 0; i < numProject; i++) {
 				fileName = listOfFiles[i].getName();
-				if (listOfFiles[i].isFile()&&fileName.endsWith(".txt")) {
+				if (listOfFiles[i].isFile()&&fileName.endsWith("_getset.txt")) {
 					fstream = new FileInputStream(fdir+fileName);
 					in = new DataInputStream(fstream);
 					br = new BufferedReader(new InputStreamReader(in));
@@ -91,7 +92,7 @@ public abstract class Summarizer {
 							name = str.substring(0, index);
 							number =Integer.valueOf(str.substring(index+2, str.length())); 
 							getSameNumber(name, number);
-							getDiffNumber(name, number);
+//							getDiffNumber(name, number);
 						}
 						str = br.readLine();
 					}
@@ -99,12 +100,12 @@ public abstract class Summarizer {
 					numLoop = numFor + numWhile;
 					if(resulttype.equals("line")){
 						writeSameNumber(proNum, fileName);
-						writeDiffNumber(proNum, fileName);
+//						writeDiffNumber(proNum, fileName);
 					}
-					else{
-						writeSameStatNumber(proNum, fileName);
-						writeDiffStatNumber(proNum, fileName);
-					}
+//					else{
+//						writeSameStatNumber(proNum, fileName);
+//						writeDiffStatNumber(proNum, fileName);
+//					}
 					proNum++;
 				}
 			}
@@ -119,7 +120,7 @@ public abstract class Summarizer {
 	private void writeSameStatNumber(int proNum, String fileName) {
 		try{
 			totalWriter.write(String.valueOf(proNum));
-			totalWriter.write(String.valueOf(fileName.substring(0, fileName.indexOf(".txt"))));
+			totalWriter.write(String.valueOf(fileName.substring(0, fileName.indexOf("_getset.txt"))));
 			totalWriter.write(String.valueOf(numCall));
 			totalWriter.write(String.valueOf(numIf));
 			totalWriter.write(String.valueOf(numAssignment));
@@ -172,59 +173,60 @@ public abstract class Summarizer {
 			totalWriter.write("ExecuteLines");
 			totalWriter.write("FunctionCall");
 			totalWriter.write("FunctionCall_percent");
-			totalWriter.write("If");
-			totalWriter.write("If_percent");
-			totalWriter.write("Assignment");
-			totalWriter.write("Assignment_percent");
-			totalWriter.write("Function");
-			totalWriter.write("Function_percent");
-			totalWriter.write("FunctionDeclaration");
-			totalWriter.write("FunctionDeclaration_percent");
-			totalWriter.write("Loop");
-			totalWriter.write("Loop_percent");
-			totalWriter.write("DeclarationStatement");
-			totalWriter.write("DeclarationStatement_percent");
-			totalWriter.write("Declaration");
-			totalWriter.write("Declaration_percent");
-			totalWriter.write("ExpressionStatement");
-			totalWriter.write("ExpressionStatement_percent");
-			totalWriter.write("Expression");
-			totalWriter.write("Expression_percent");
-			totalWriter.write("ParameterList");
-			totalWriter.write("ParameterList_percent");
-			totalWriter.write("Parameter");
-			totalWriter.write("Parameter_percent");
-			totalWriter.write("ArgumentList");
-			totalWriter.write("ArgumentList_percent");
-			totalWriter.write("Argument");
-			totalWriter.write("Argument_percent");
-			totalWriter.write("Block");
-			totalWriter.write("Block_percent");
-			totalWriter.write("Continue");
-			totalWriter.write("Continue_percent");
-			totalWriter.write("Break");
-			totalWriter.write("Break_percent");
-			totalWriter.write("Return");
-			totalWriter.write("Return_percent");
-			totalWriter.write("For");
-			totalWriter.write("For_percent");
-			totalWriter.write("Else");
-			totalWriter.write("Else_percent");
-			totalWriter.write("While");
-			totalWriter.write("While_percent");
-			totalWriter.write("Do");
-			totalWriter.write("Do_percent");
-			totalWriter.write("Switch");
-			totalWriter.write("Switch_percent");
-			totalWriter.write("Case");
-			totalWriter.write("Case_percent");
+//			totalWriter.write("If");
+//			totalWriter.write("If_percent");
+//			totalWriter.write("Assignment");
+//			totalWriter.write("Assignment_percent");
+//			totalWriter.write("Function");
+//			totalWriter.write("Function_percent");
+//			totalWriter.write("FunctionDeclaration");
+//			totalWriter.write("FunctionDeclaration_percent");
+//			totalWriter.write("Loop");
+//			totalWriter.write("Loop_percent");
+//			totalWriter.write("DeclarationStatement");
+//			totalWriter.write("DeclarationStatement_percent");
+//			totalWriter.write("Declaration");
+//			totalWriter.write("Declaration_percent");
+//			totalWriter.write("ExpressionStatement");
+//			totalWriter.write("ExpressionStatement_percent");
+//			totalWriter.write("Expression");
+//			totalWriter.write("Expression_percent");
+//			totalWriter.write("ParameterList");
+//			totalWriter.write("ParameterList_percent");
+//			totalWriter.write("Parameter");
+//			totalWriter.write("Parameter_percent");
+//			totalWriter.write("ArgumentList");
+//			totalWriter.write("ArgumentList_percent");
+//			totalWriter.write("Argument");
+//			totalWriter.write("Argument_percent");
+//			totalWriter.write("Block");
+//			totalWriter.write("Block_percent");
+//			totalWriter.write("Continue");
+//			totalWriter.write("Continue_percent");
+//			totalWriter.write("Break");
+//			totalWriter.write("Break_percent");
+//			totalWriter.write("Return");
+//			totalWriter.write("Return_percent");
+//			totalWriter.write("For");
+//			totalWriter.write("For_percent");
+//			totalWriter.write("Else");
+//			totalWriter.write("Else_percent");
+//			totalWriter.write("While");
+//			totalWriter.write("While_percent");
+//			totalWriter.write("Do");
+//			totalWriter.write("Do_percent");
+//			totalWriter.write("Switch");
+//			totalWriter.write("Switch_percent");
+//			totalWriter.write("Case");
+//			totalWriter.write("Case_percent");
 			totalWriter.write("LocalFunctionCall");
 			totalWriter.write("LibFunctionCall");
 			totalWriter.write("LocalGetSetCall");
 			totalWriter.write("LibGetSetCall");
-			totalWriter.write("ZeroOperatorAssign");
-			totalWriter.write("ZeroOpCallAssign");
-			totalWriter.write("ConstAssign");
+//			totalWriter.write("ZeroOperatorAssign");
+//			totalWriter.write("ZeroOpCallAssign");
+//			totalWriter.write("ConstAssign");
+			totalWriter.endRecord();
 		}catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -247,72 +249,72 @@ public abstract class Summarizer {
 		if(name.equals("Call")){
 			numCall = number;
 		}
-		if(name.equals("If")){
-			numIf = number;
-		}
-		if(name.equals("Assignment")){
-			numAssignment = number;
-		}
-		if(name.equals("Function")){
-			numFunction = number;
-		}
-		if(name.equals("Function declaration")){
-			numFunctionDecl = number;
-		}
-		if(name.equals("Switch")){
-			numSwitch = number;
-		}
-		if(name.equals("Declaration statement")){
-			numDeclstmt = number;
-		}
-		if(name.equals("Declaration")){
-			numDecl = number;
-		}
-		if(name.equals("Expression statement")){
-			numExprstmt = number;
-		}
-		if(name.equals("Expression")){
-			numExpr = number;
-		}
-		if(name.equals("Parameter list")){
-			numParamList = number;
-		}
-		if(name.equals("Parameter")){
-			numParam = number;
-		}
-		if(name.equals("Argument list")){
-			numArguList = number;
-		}
-		if(name.equals("Argument")){
-			numArgu = number;
-		}
-		if(name.equals("Block")){
-			numBlock = number;
-		}
-		if(name.equals("Continue")){
-			numContinue = number;
-		}
-		if(name.equals("Break")){
-			numBreak = number;
-		}
-		if(name.equals("Return")){
-			numReturn = number;
-		}
-		if(name.equals("For")){
-			numFor = number;
-		}
-		if(name.equals("Else")){
-			numElse = number;
-		}
-		if(name.equals("While")){
-			numWhile = number;
-		}
-		if(name.equals("Case")){
-			numCase = number;
-		}
-		if(name.equals("Do")){
-			numDo = number;
-		}
+//		if(name.equals("If")){
+//			numIf = number;
+//		}
+//		if(name.equals("Assignment")){
+//			numAssignment = number;
+//		}
+//		if(name.equals("Function")){
+//			numFunction = number;
+//		}
+//		if(name.equals("Function declaration")){
+//			numFunctionDecl = number;
+//		}
+//		if(name.equals("Switch")){
+//			numSwitch = number;
+//		}
+//		if(name.equals("Declaration statement")){
+//			numDeclstmt = number;
+//		}
+//		if(name.equals("Declaration")){
+//			numDecl = number;
+//		}
+//		if(name.equals("Expression statement")){
+//			numExprstmt = number;
+//		}
+//		if(name.equals("Expression")){
+//			numExpr = number;
+//		}
+//		if(name.equals("Parameter list")){
+//			numParamList = number;
+//		}
+//		if(name.equals("Parameter")){
+//			numParam = number;
+//		}
+//		if(name.equals("Argument list")){
+//			numArguList = number;
+//		}
+//		if(name.equals("Argument")){
+//			numArgu = number;
+//		}
+//		if(name.equals("Block")){
+//			numBlock = number;
+//		}
+//		if(name.equals("Continue")){
+//			numContinue = number;
+//		}
+//		if(name.equals("Break")){
+//			numBreak = number;
+//		}
+//		if(name.equals("Return")){
+//			numReturn = number;
+//		}
+//		if(name.equals("For")){
+//			numFor = number;
+//		}
+//		if(name.equals("Else")){
+//			numElse = number;
+//		}
+//		if(name.equals("While")){
+//			numWhile = number;
+//		}
+//		if(name.equals("Case")){
+//			numCase = number;
+//		}
+//		if(name.equals("Do")){
+//			numDo = number;
+//		}
 		if(name.equals("Local function call")){
 			numLocalFunctionCall = number;
 		}
@@ -325,15 +327,15 @@ public abstract class Summarizer {
 		if(name.equals("Library gettersetter call")){
 			numLibGetSetCall = number;
 		}
-		if(name.equals("Zero operator assignment")){
-			numZeroOpAssign = number;
-		}
-		if(name.equals("Zero operator call assignment")){
-			numZeroOpCallAssign = number;
-		}
-		if(name.equals("Const assignment")){
-			numConstAssign = number;
-		}
+//		if(name.equals("Zero operator assignment")){
+//			numZeroOpAssign = number;
+//		}
+//		if(name.equals("Zero operator call assignment")){
+//			numZeroOpCallAssign = number;
+//		}
+//		if(name.equals("Const assignment")){
+//			numConstAssign = number;
+//		}
 	}
 
 
@@ -342,89 +344,90 @@ public abstract class Summarizer {
 		double percent;
 		try{
 			totalWriter.write(String.valueOf(proNum));
-			totalWriter.write(filename.substring(0, filename.indexOf(".txt")));
+			totalWriter.write(filename.substring(0, filename.indexOf("_getset.txt")));
 			totalWriter.write(String.valueOf(numFile));
 			totalWriter.write(String.valueOf(numTotalLine));
 			totalWriter.write(String.valueOf(numExecuteLine));
 			totalWriter.write(String.valueOf(numCall));
 			percent = (double)numCall/numExecuteLine;
 			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
-			totalWriter.write(String.valueOf(numIf));
-			percent = (double)numIf/numExecuteLine;
-			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
-			totalWriter.write(String.valueOf(numAssignment));
-			percent = (double)numAssignment/numExecuteLine;
-			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
-			totalWriter.write(String.valueOf(numFunction));
-			percent = (double)numFunction/numExecuteLine;
-			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
-			totalWriter.write(String.valueOf(numFunctionDecl));
-			percent = (double)numFunctionDecl/numExecuteLine;
-			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
-			totalWriter.write(String.valueOf(numLoop));
-			percent = (double)numLoop/numExecuteLine;
-			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
-			totalWriter.write(String.valueOf(numDeclstmt));
-			percent = (double)numDeclstmt/numExecuteLine;
-			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
-			totalWriter.write(String.valueOf(numDecl));
-			percent = (double)numDecl/numExecuteLine;
-			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
-			totalWriter.write(String.valueOf(numExprstmt));
-			percent = (double)numExprstmt/numExecuteLine;
-			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
-			totalWriter.write(String.valueOf(numExpr));
-			percent = (double)numExpr/numExecuteLine;
-			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
-			totalWriter.write(String.valueOf(numParamList));
-			percent = (double)numParamList/numExecuteLine;
-			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
-			totalWriter.write(String.valueOf(numParam));
-			percent = (double)numParam/numExecuteLine;
-			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
-			totalWriter.write(String.valueOf(numArguList));
-			percent = (double)numArguList/numExecuteLine;
-			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
-			totalWriter.write(String.valueOf(numArgu));
-			percent = (double)numArgu/numExecuteLine;
-			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
-			totalWriter.write(String.valueOf(numBlock));
-			percent = (double)numBlock/numExecuteLine;
-			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
-			totalWriter.write(String.valueOf(numContinue));
-			percent = (double)numContinue/numExecuteLine;
-			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
-			totalWriter.write(String.valueOf(numBreak));
-			percent = (double)numBreak/numExecuteLine;
-			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
-			totalWriter.write(String.valueOf(numReturn));
-			percent = (double)numReturn/numExecuteLine;
-			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
-			totalWriter.write(String.valueOf(numFor));
-			percent = (double)numFor/numExecuteLine;
-			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
-			totalWriter.write(String.valueOf(numElse));
-			percent = (double)numElse/numExecuteLine;
-			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
-			totalWriter.write(String.valueOf(numWhile));
-			percent = (double)numWhile/numExecuteLine;
-			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
-			totalWriter.write(String.valueOf(numDo));
-			percent = (double)numDo/numExecuteLine;
-			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
-			totalWriter.write(String.valueOf(numSwitch));
-			percent = (double)numSwitch/numExecuteLine;
-			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
-			totalWriter.write(String.valueOf(numCase));
-			percent = (double)numCase/numExecuteLine;
-			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
+//			totalWriter.write(String.valueOf(numIf));
+//			percent = (double)numIf/numExecuteLine;
+//			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
+//			totalWriter.write(String.valueOf(numAssignment));
+//			percent = (double)numAssignment/numExecuteLine;
+//			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
+//			totalWriter.write(String.valueOf(numFunction));
+//			percent = (double)numFunction/numExecuteLine;
+//			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
+//			totalWriter.write(String.valueOf(numFunctionDecl));
+//			percent = (double)numFunctionDecl/numExecuteLine;
+//			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
+//			totalWriter.write(String.valueOf(numLoop));
+//			percent = (double)numLoop/numExecuteLine;
+//			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
+//			totalWriter.write(String.valueOf(numDeclstmt));
+//			percent = (double)numDeclstmt/numExecuteLine;
+//			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
+//			totalWriter.write(String.valueOf(numDecl));
+//			percent = (double)numDecl/numExecuteLine;
+//			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
+//			totalWriter.write(String.valueOf(numExprstmt));
+//			percent = (double)numExprstmt/numExecuteLine;
+//			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
+//			totalWriter.write(String.valueOf(numExpr));
+//			percent = (double)numExpr/numExecuteLine;
+//			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
+//			totalWriter.write(String.valueOf(numParamList));
+//			percent = (double)numParamList/numExecuteLine;
+//			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
+//			totalWriter.write(String.valueOf(numParam));
+//			percent = (double)numParam/numExecuteLine;
+//			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
+//			totalWriter.write(String.valueOf(numArguList));
+//			percent = (double)numArguList/numExecuteLine;
+//			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
+//			totalWriter.write(String.valueOf(numArgu));
+//			percent = (double)numArgu/numExecuteLine;
+//			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
+//			totalWriter.write(String.valueOf(numBlock));
+//			percent = (double)numBlock/numExecuteLine;
+//			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
+//			totalWriter.write(String.valueOf(numContinue));
+//			percent = (double)numContinue/numExecuteLine;
+//			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
+//			totalWriter.write(String.valueOf(numBreak));
+//			percent = (double)numBreak/numExecuteLine;
+//			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
+//			totalWriter.write(String.valueOf(numReturn));
+//			percent = (double)numReturn/numExecuteLine;
+//			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
+//			totalWriter.write(String.valueOf(numFor));
+//			percent = (double)numFor/numExecuteLine;
+//			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
+//			totalWriter.write(String.valueOf(numElse));
+//			percent = (double)numElse/numExecuteLine;
+//			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
+//			totalWriter.write(String.valueOf(numWhile));
+//			percent = (double)numWhile/numExecuteLine;
+//			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
+//			totalWriter.write(String.valueOf(numDo));
+//			percent = (double)numDo/numExecuteLine;
+//			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
+//			totalWriter.write(String.valueOf(numSwitch));
+//			percent = (double)numSwitch/numExecuteLine;
+//			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
+//			totalWriter.write(String.valueOf(numCase));
+//			percent = (double)numCase/numExecuteLine;
+//			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
 			totalWriter.write(String.valueOf(numLocalFunctionCall));
 			totalWriter.write(String.valueOf(numLibFunctionCall));
 			totalWriter.write(String.valueOf(numLocalGetSetCall));
 			totalWriter.write(String.valueOf(numLibGetSetCall));
-			totalWriter.write(String.valueOf(numZeroOpAssign));
-			totalWriter.write(String.valueOf(numZeroOpCallAssign));
-			totalWriter.write(String.valueOf(numConstAssign));
+//			totalWriter.write(String.valueOf(numZeroOpAssign));
+//			totalWriter.write(String.valueOf(numZeroOpCallAssign));
+//			totalWriter.write(String.valueOf(numConstAssign));
+			totalWriter.endRecord();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

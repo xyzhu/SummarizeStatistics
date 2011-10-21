@@ -16,11 +16,11 @@ public class SummarizeC extends Summarizer {
 	@Override
 	public void createFile() {
 		if(resulttype.equals("line")){
-			totalWriter = new CsvWriter(fdir+"TotalStatistics_line_c.csv");
+			totalWriter = new CsvWriter(fdir+"TotalStatistics_line_getset_c.csv");
 		}
-		else{
-			totalWriter = new CsvWriter(fdir+"TotalStatistics_stat_c.csv");
-		}
+//		else{
+//			totalWriter = new CsvWriter(fdir+"TotalStatistics_stat_getset_c.csv");
+//		}
 	}
 
 	@Override

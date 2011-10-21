@@ -18,11 +18,11 @@ public class SummarizeJava extends Summarizer {
 	@Override
 	public void createFile() {
 		if(resulttype.equals("line")){
-			totalWriter = new CsvWriter(fdir+"TotalStatistics_line_java.csv");
+			totalWriter = new CsvWriter(fdir+"TotalStatistics_line_getset_java.csv");
 		}
-		else{
-			totalWriter = new CsvWriter(fdir+"TotalStatistics_stat_java.csv");
-		}
+//		else{
+//			totalWriter = new CsvWriter(fdir+"TotalStatistics_stat_java.csv");
+//		}
 	}
 	@Override
 	public void writeDiffColumnName() {

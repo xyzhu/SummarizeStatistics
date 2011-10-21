@@ -23,11 +23,11 @@ public class SummarizeCplusplus extends Summarizer {
 	@Override
 	public void createFile() {
 		if(resulttype.equals("line")){
-			totalWriter = new CsvWriter(fdir+"TotalStatistics_line_cpp.csv");
+			totalWriter = new CsvWriter(fdir+"TotalStatistics_line_getset_cpp.csv");
 		}
-		else{
-			totalWriter = new CsvWriter(fdir+"TotalStatistics_stat_cpp.csv");
-		}
+//		else{
+//			totalWriter = new CsvWriter(fdir+"TotalStatistics_stat_cpp.csv");
+//		}
 	}
 	@Override
 	public void writeDiffColumnName() {
