@@ -15,6 +15,8 @@ public class SummarizeCplusplus extends Summarizer {
 	public int numCatch = 0;
 	public int numThrow = 0;
 	public int numOpOverloadCall = 0;
+	public int numLocalOpOverloadCall = 0;
+	public int numLibOpOverloadCall = 0;
 
 	public SummarizeCplusplus(String folderdir, String type){
 		fdir = folderdir;
@@ -36,6 +38,8 @@ public class SummarizeCplusplus extends Summarizer {
 			totalWriter.write("Class");
 			totalWriter.write("Struct");
 			totalWriter.write("OpOverloadCall");
+			totalWriter.write("LocalOpOverloadCall");
+			totalWriter.write("LibOpOverloadCall");
 			totalWriter.write("Constructordecl");
 			totalWriter.write("Constructordecl_percent");
 			totalWriter.write("Destructordecl");
@@ -64,6 +68,8 @@ public class SummarizeCplusplus extends Summarizer {
 			totalWriter.write(String.valueOf(numClass));
 			totalWriter.write(String.valueOf(numStruct));
 			totalWriter.write(String.valueOf(numOpOverloadCall));
+			totalWriter.write(String.valueOf(numLocalOpOverloadCall));
+			totalWriter.write(String.valueOf(numLibOpOverloadCall));
 			totalWriter.write(String.valueOf(numConstructordecl));
 			percent = (double)numConstructordecl/numExecuteLine;
 			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
@@ -129,6 +135,12 @@ public class SummarizeCplusplus extends Summarizer {
 		}
 		if(name.equals("Operator overload call")){
 			numOpOverloadCall = number;
+		}
+		if(name.equals("Local operator overload call")){
+			numLocalOpOverloadCall = number;
+		}
+		if(name.equals("Library operator overload call")){
+			numLibOpOverloadCall = number;
 		}
 	}
 
