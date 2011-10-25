@@ -14,6 +14,7 @@ public class SummarizeCplusplus extends Summarizer {
 	public int numTry = 0;
 	public int numCatch = 0;
 	public int numThrow = 0;
+	public int numOpOverloadCall = 0;
 
 	public SummarizeCplusplus(String folderdir, String type){
 		fdir = folderdir;
@@ -34,6 +35,7 @@ public class SummarizeCplusplus extends Summarizer {
 		try {
 			totalWriter.write("Class");
 			totalWriter.write("Struct");
+			totalWriter.write("OpOverloadCall");
 			totalWriter.write("Constructordecl");
 			totalWriter.write("Constructordecl_percent");
 			totalWriter.write("Destructordecl");
@@ -61,6 +63,7 @@ public class SummarizeCplusplus extends Summarizer {
 		try {
 			totalWriter.write(String.valueOf(numClass));
 			totalWriter.write(String.valueOf(numStruct));
+			totalWriter.write(String.valueOf(numOpOverloadCall));
 			totalWriter.write(String.valueOf(numConstructordecl));
 			percent = (double)numConstructordecl/numExecuteLine;
 			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
@@ -123,6 +126,9 @@ public class SummarizeCplusplus extends Summarizer {
 		}
 		if(name.equals("Throw")){
 			numThrow = number;
+		}
+		if(name.equals("Operator overload call")){
+			numOpOverloadCall = number;
 		}
 	}
 
