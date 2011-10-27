@@ -67,9 +67,6 @@ public class SummarizeCplusplus extends Summarizer {
 		try {
 			totalWriter.write(String.valueOf(numClass));
 			totalWriter.write(String.valueOf(numStruct));
-			totalWriter.write(String.valueOf(numOpOverloadCall));
-			totalWriter.write(String.valueOf(numLocalOpOverloadCall));
-			totalWriter.write(String.valueOf(numLibOpOverloadCall));
 			totalWriter.write(String.valueOf(numConstructordecl));
 			percent = (double)numConstructordecl/numExecuteLine;
 			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
@@ -135,12 +132,15 @@ public class SummarizeCplusplus extends Summarizer {
 		}
 		if(name.equals("Operator overload call")){
 			numOpOverloadCall = number;
+			numCall += number;
 		}
 		if(name.equals("Local operator overload call")){
 			numLocalOpOverloadCall = number;
+			numLocalFunctionCall += number;
 		}
 		if(name.equals("Library operator overload call")){
 			numLibOpOverloadCall = number;
+			numLibFunctionCall += number;
 		}
 	}
 
