@@ -35,11 +35,11 @@ public class SummarizeCplusplus extends Summarizer {
 	@Override
 	public void writeDiffColumnName() {
 		try {
-			totalWriter.write("Class");
-			totalWriter.write("Struct");
 			totalWriter.write("OpOverloadCall");
 			totalWriter.write("LocalOpOverloadCall");
 			totalWriter.write("LibOpOverloadCall");
+			totalWriter.write("Class");
+			totalWriter.write("Struct");
 			totalWriter.write("Constructordecl");
 			totalWriter.write("Constructordecl_percent");
 			totalWriter.write("Destructordecl");
@@ -65,6 +65,9 @@ public class SummarizeCplusplus extends Summarizer {
 	public void writeDiffNumber(int i, String s) {
 		double percent;
 		try {
+			totalWriter.write(String.valueOf(numOpOverloadCall));
+			totalWriter.write(String.valueOf(numLocalOpOverloadCall));
+			totalWriter.write(String.valueOf(numLibOpOverloadCall));
 			totalWriter.write(String.valueOf(numClass));
 			totalWriter.write(String.valueOf(numStruct));
 			totalWriter.write(String.valueOf(numConstructordecl));
