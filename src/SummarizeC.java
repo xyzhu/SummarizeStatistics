@@ -27,6 +27,7 @@ public class SummarizeC extends Summarizer {
 	public void writeDiffColumnName() {
 		try {
 			totalWriter.write("Struct");
+			totalWriter.write("Struct_percent");
 			totalWriter.write("Gogo");
 			totalWriter.write("Goto_percent");
 			totalWriter.write("Label");
@@ -42,6 +43,8 @@ public class SummarizeC extends Summarizer {
 		double percent;
 		try {
 			totalWriter.write(String.valueOf(numStruct));
+			percent = (double)numStruct/numExecuteLine;
+			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
 			totalWriter.write(String.valueOf(numGoto));
 			percent = (double)numGoto/numExecuteLine;
 			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
