@@ -28,6 +28,7 @@ public class SummarizeJava extends Summarizer {
 	public void writeDiffColumnName() {
 		try {
 			totalWriter.write("Class");
+			totalWriter.write("Class_percent");
 			totalWriter.write("Constructor");
 			totalWriter.write("Constructor_percent");
 			totalWriter.write("Try");
@@ -45,7 +46,10 @@ public class SummarizeJava extends Summarizer {
 	public void writeDiffNumber(int i, String s) {
 		double percent;
 		try {
-			totalWriter.write(String.valueOf(numClass));totalWriter.write(String.valueOf(numConstructor));
+			totalWriter.write(String.valueOf(numClass));
+			percent = (double)numClass/numExecuteLine;
+			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
+			totalWriter.write(String.valueOf(numConstructor));
 			percent = (double)numConstructor/numExecuteLine;
 			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
 			totalWriter.write(String.valueOf(numTry));

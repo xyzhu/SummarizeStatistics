@@ -39,6 +39,7 @@ public class SummarizeCplusplus extends Summarizer {
 			totalWriter.write("LocalOpOverloadCall");
 			totalWriter.write("LibOpOverloadCall");
 			totalWriter.write("Class");
+			totalWriter.write("Class_percent");
 			totalWriter.write("Struct");
 			totalWriter.write("Struct_percent");
 			totalWriter.write("Constructordecl");
@@ -70,6 +71,8 @@ public class SummarizeCplusplus extends Summarizer {
 			totalWriter.write(String.valueOf(numLocalOpOverloadCall));
 			totalWriter.write(String.valueOf(numLibOpOverloadCall));
 			totalWriter.write(String.valueOf(numClass));
+			percent = (double)numClass/numExecuteLine;
+			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
 			totalWriter.write(String.valueOf(numStruct));
 			percent = (double)numStruct/numExecuteLine;
 			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
