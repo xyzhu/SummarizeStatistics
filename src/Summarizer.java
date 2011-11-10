@@ -39,6 +39,8 @@ public abstract class Summarizer {
 	public int numAssignment;
 	public int numLocalFunctionCall = 0;
 	public int numLibFunctionCall = 0;
+	public int numLocalGetterSetterCall = 0;
+	public int numLibGetterSetterCall = 0;
 	public int numZeroOpAssign = 0;
 	public int numZeroOpCallAssign = 0;
 	public int numConstAssign = 0;
@@ -224,6 +226,7 @@ public abstract class Summarizer {
 			totalWriter.write("Case_percent");
 			totalWriter.write("LocalFunctionCall");
 			totalWriter.write("LibFunctionCall");
+			totalWriter.write("GetterSetterCall");
 			totalWriter.write("ZeroOperatorAssign");
 			totalWriter.write("ZeroOpCallAssign");
 			totalWriter.write("ConstAssign");
@@ -323,6 +326,12 @@ public abstract class Summarizer {
 		}
 		if(name.equals("Library function call")){
 			numLibFunctionCall = number;
+		}
+		if(name.equals("Local getter setter call")){
+			numLocalGetterSetterCall = number;
+		}
+		if(name.equals("Library getter setter call")){
+			numLibGetterSetterCall = number;
 		}
 		if(name.equals("Zero operator assignment")){
 			numZeroOpAssign = number;
@@ -431,6 +440,8 @@ public abstract class Summarizer {
 			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
 			totalWriter.write(String.valueOf(numLocalFunctionCall));
 			totalWriter.write(String.valueOf(numLibFunctionCall));
+			totalWriter.write(String.valueOf(numLocalGetterSetterCall+
+					numLibGetterSetterCall));
 			totalWriter.write(String.valueOf(numZeroOpAssign));
 			totalWriter.write(String.valueOf(numZeroOpCallAssign));
 			totalWriter.write(String.valueOf(numConstAssign));
