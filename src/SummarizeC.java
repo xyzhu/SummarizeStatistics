@@ -6,6 +6,7 @@ public class SummarizeC extends Summarizer {
 
 	public int numStruct;
 	public int numGoto;
+	public int numDirective;
 	public int numLabel;
 
 	public SummarizeC(String folderdir, String type){
@@ -30,6 +31,8 @@ public class SummarizeC extends Summarizer {
 			totalWriter.write("Struct_percent");
 			totalWriter.write("Gogo");
 			totalWriter.write("Goto_percent");
+			totalWriter.write("Directive");
+			totalWriter.write("Directive_percent");
 			totalWriter.write("Label");
 			totalWriter.write("Label_percent");
 			totalWriter.endRecord();
@@ -48,6 +51,9 @@ public class SummarizeC extends Summarizer {
 			totalWriter.write(String.valueOf(numGoto));
 			percent = (double)numGoto/numExecuteLine;
 			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
+			totalWriter.write(String.valueOf(numDirective));
+			percent = (double)numDirective/numExecuteLine;
+			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
 			totalWriter.write(String.valueOf(numLabel));
 			percent = (double)numLabel/numExecuteLine;
 			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
@@ -65,6 +71,9 @@ public class SummarizeC extends Summarizer {
 		if(name.equals("Goto")){
 			numGoto = number;
 		}
+		if(name.equals("Directive")){
+			numDirective = number;
+		}
 		if(name.equals("Label")){
 			numLabel = number;
 		}
@@ -75,6 +84,7 @@ public class SummarizeC extends Summarizer {
 		try {
 			totalWriter.write("Struct");
 			totalWriter.write("Goto");
+			totalWriter.write("Directive");
 			totalWriter.write("Label");
 			totalWriter.endRecord();
 		} catch (IOException e) {
@@ -87,6 +97,7 @@ public class SummarizeC extends Summarizer {
 		try {
 			totalWriter.write(String.valueOf(numStruct));
 			totalWriter.write(String.valueOf(numGoto));
+			totalWriter.write(String.valueOf(numDirective));
 			totalWriter.write(String.valueOf(numLabel));
 			totalWriter.endRecord();
 		} catch (IOException e) {

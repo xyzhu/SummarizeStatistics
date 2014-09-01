@@ -9,6 +9,7 @@ public class SummarizeJava extends Summarizer {
 	public int numTry = 0;
 	public int numCatch = 0;
 	public int numThrow = 0;
+	public int numSynchronized = 0;
 	
 	public SummarizeJava(String folderdir, String type){
 		fdir = folderdir;
@@ -37,6 +38,8 @@ public class SummarizeJava extends Summarizer {
 			totalWriter.write("Catch_percent");
 			totalWriter.write("Throw");
 			totalWriter.write("Throw_percent");
+			totalWriter.write("Synchronized");
+			totalWriter.write("Synchronized_percent");
 			totalWriter.endRecord();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -61,6 +64,9 @@ public class SummarizeJava extends Summarizer {
 			totalWriter.write(String.valueOf(numThrow));
 			percent = (double)numThrow/numExecuteLine;
 			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
+			totalWriter.write(String.valueOf(numSynchronized));
+			percent = (double)numSynchronized/numExecuteLine;
+			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
 			totalWriter.endRecord();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -84,6 +90,9 @@ public class SummarizeJava extends Summarizer {
 		if(name.equals("Throw")){
 			numThrow = number;
 		}
+		if(name.equals("Synchronized")){
+			numSynchronized = number;
+		}
 	}
 
 	@Override
@@ -94,6 +103,7 @@ public class SummarizeJava extends Summarizer {
 			totalWriter.write("Try");
 			totalWriter.write("Catch");
 			totalWriter.write("Throw");
+			totalWriter.write("Synchronized");
 			totalWriter.endRecord();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -108,6 +118,7 @@ public class SummarizeJava extends Summarizer {
 			totalWriter.write(String.valueOf(numTry));
 			totalWriter.write(String.valueOf(numCatch));
 			totalWriter.write(String.valueOf(numThrow));
+			totalWriter.write(String.valueOf(numSynchronized));
 			totalWriter.endRecord();
 		} catch (IOException e) {
 			e.printStackTrace();

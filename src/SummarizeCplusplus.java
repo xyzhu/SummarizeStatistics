@@ -11,6 +11,7 @@ public class SummarizeCplusplus extends Summarizer {
 	public int numConstructor = 0;
 	public int numDestructor = 0;
 	public int numUnion = 0;
+	public int numDirective = 0;
 	public int numTry = 0;
 	public int numCatch = 0;
 	public int numThrow = 0;
@@ -52,6 +53,8 @@ public class SummarizeCplusplus extends Summarizer {
 			totalWriter.write("Destructor_percent");
 			totalWriter.write("Union");
 			totalWriter.write("Union_percent");
+			totalWriter.write("Directive");
+			totalWriter.write("Directive_percent");
 			totalWriter.write("Try");
 			totalWriter.write("Try_percent");
 			totalWriter.write("Catch");
@@ -90,6 +93,9 @@ public class SummarizeCplusplus extends Summarizer {
 			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
 			totalWriter.write(String.valueOf(numUnion));
 			percent = (double)numUnion/numExecuteLine;
+			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
+			totalWriter.write(String.valueOf(numDirective));
+			percent = (double)numDirective/numExecuteLine;
 			totalWriter.write(String.valueOf((double)Math.round(percent*10000)/10000));
 			totalWriter.write(String.valueOf(numTry));
 			percent = (double)numTry/numExecuteLine;
@@ -130,6 +136,10 @@ public class SummarizeCplusplus extends Summarizer {
 		if(name.equals("Union")){
 			numUnion = number;
 		}
+		if(name.equals("Directive"))
+		{
+			numDirective = number;
+		}
 		if(name.equals("Try")){
 			numTry = number;
 		}
@@ -163,6 +173,7 @@ public class SummarizeCplusplus extends Summarizer {
 			totalWriter.write("Constructor");
 			totalWriter.write("Destructor");
 			totalWriter.write("Union");
+			totalWriter.write("Directive");;
 			totalWriter.write("Try");
 			totalWriter.write("Catch");
 			totalWriter.write("Throw");
@@ -182,6 +193,7 @@ public class SummarizeCplusplus extends Summarizer {
 			totalWriter.write(String.valueOf(numConstructor));
 			totalWriter.write(String.valueOf(numDestructor));
 			totalWriter.write(String.valueOf(numUnion));
+			totalWriter.write(String.valueOf(numDirective));
 			totalWriter.write(String.valueOf(numTry));
 			totalWriter.write(String.valueOf(numCatch));
 			totalWriter.write(String.valueOf(numThrow));
